@@ -19,6 +19,7 @@ class PostsTableSeeder extends Seeder
         $first = new Post();
         $first->message = "Welcome to my Web App. I hope you like it.";
         $first->public = true;
+        $first->user_id = 1;
         $first->save();
 
         Post::factory()->count(100)->create();
