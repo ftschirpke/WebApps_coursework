@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('message');
             $table->binary('image')->nullable();
             $table->boolean('public');
-            $table->unsignedBigInteger('user_id')->unique();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')
