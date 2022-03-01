@@ -22,7 +22,7 @@ class PostFactory extends Factory
             'message' => $this->faker->realText($maxNbChars=rand($min=20, $max=200)),
             'image' => $this->faker->optional($weight = 0.3)->image(),
             'public' => $this->faker->boolean($chanceOfGettingTrue = 70),
-            'user_id' => User::pluck('id')->random() // default value that will be overwritten in the seeder
+            'user_id' => User::pluck('id')->random()
         ];
     }
 }

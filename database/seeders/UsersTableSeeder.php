@@ -31,6 +31,6 @@ class UsersTableSeeder extends Seeder
         $test2->display_name = "hilarious name";
         $test2->save();
 
-        User::factory()->count(30)->create();
+        User::factory()->count(20)->create();
     }
 }
