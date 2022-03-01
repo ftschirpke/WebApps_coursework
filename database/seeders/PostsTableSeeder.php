@@ -17,6 +17,7 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         $first = new Post();
+        $first->title = "Welcome!";
         $first->message = "Welcome to my Web App. I hope you like it.";
         $first->public = true;
         $first->user_id = 1;

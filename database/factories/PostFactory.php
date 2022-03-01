@@ -19,6 +19,7 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
+            'title' => $this->faker->realText($maxNbChars=rand($min=10, $max=50)),
             'message' => $this->faker->realText($maxNbChars=rand($min=20, $max=200)),
             'image' => $this->faker->optional($weight = 0.3)->image(),
             'public' => $this->faker->boolean($chanceOfGettingTrue = 70),
