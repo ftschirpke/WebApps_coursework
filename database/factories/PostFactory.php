@@ -19,8 +19,8 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'message' => $this->faker->realText($maxNbChars=200),
-            'image' => $this->faker->image(),
+            'message' => $this->faker->realText($maxNbChars=rand($min=20, $max=200)),
+            'image' => $this->faker->optional($weight = 0.3)->image(),
             'public' => $this->faker->boolean($chanceOfGettingTrue = 70),
             'user_id' => User::pluck('id')->random() // default value that will be overwritten in the seeder
         ];
