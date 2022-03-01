@@ -20,7 +20,7 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'message' => $this->faker->realText($maxNbChars=rand($min=20, $max=200)),
+            'message' => $this->faker->realText($maxNbChars=rand($min=20, $max=1000)),
             'user_id' => User::pluck('id')->random(),
             'post_id' => Post::pluck('id')->random()
         ];

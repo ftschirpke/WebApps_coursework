@@ -20,7 +20,7 @@ class PostFactory extends Factory
     {
         return [
             'title' => $this->faker->realText($maxNbChars=rand($min=10, $max=50)),
-            'message' => $this->faker->realText($maxNbChars=rand($min=20, $max=200)),
+            'message' => $this->faker->realText($maxNbChars=rand($min=20, $max=5000)),
             'image' => $this->faker->optional($weight = 0.3)->image(),
             'public' => $this->faker->boolean($chanceOfGettingTrue = 70),
             'user_id' => User::pluck('id')->random()
