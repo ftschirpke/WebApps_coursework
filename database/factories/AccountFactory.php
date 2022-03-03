@@ -20,7 +20,8 @@ class AccountFactory extends Factory
             
             'display_name' => $this->faker->userName(),
             'icon' => $this->faker->optional($weight = 0.6)
-            ->image($dir = '/tmp', $width=100, $height=100, 'cats'),
+            // ->image($dir = storage_path('app/public'), $width=100, $height=100, 'cats'),
+            ->imageUrl($width=100, $height=100, 'cats'),
         ];
     }
 }

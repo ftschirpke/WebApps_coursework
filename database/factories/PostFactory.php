@@ -21,7 +21,8 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->realText($maxNbChars=rand($min=10, $max=60)),
             'message' => $this->faker->realText($maxNbChars=rand($min=20, $max=5000)),
-            'image' => $this->faker->optional($weight = 0.3)->image(),
+            // 'image' => $this->faker->optional($weight = 0.3)->image($dir = storage_path('app/public')),
+            'image' => $this->faker->optional($weight = 0.3)->imageUrl(),
             'public' => $this->faker->boolean($chanceOfGettingTrue = 70),
             'user_id' => User::pluck('id')->random()
         ];
