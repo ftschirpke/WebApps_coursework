@@ -10,7 +10,10 @@
             <a class="nav-link" href="#">else</a>
         </li>
     </x-slot>
-    @foreach ($posts as $post)
-        <li>{{ $post->title }}</li>
-    @endforeach
+    <div class="container-fluid p-4">
+        <h1>List of all posts</h1>
+        @foreach ($posts as $post)
+            <li>{{ $post->title }}</li>
+        @endforeach
+    </div>
 </x-layout>
