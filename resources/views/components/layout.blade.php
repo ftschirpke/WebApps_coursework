@@ -11,10 +11,17 @@
         <title>{{ $title ?? '(Course)work in progress'}}</title>
     </head>
     <body class="bg-secondary text-dark">
+        <x-navbar>
+            {{ $navbar_slot }}
+        </x-navbar>
         <div class="container pt-4">
             <div class="row justify-content-md-center">
                 <div class="col col-lg-2"></div>
-                {{ $slot }}
+                <span class="border border-4 bg-dark border-dark rounded text-light">
+                    <div class="col-md-auto">
+                        {{ $slot }}
+                    </div>
+                </span>
                 <div class="col col-lg-2"></div>
             </div>
         </div>
