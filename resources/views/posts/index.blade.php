@@ -1,19 +1,13 @@
+<x-navbar active="all_posts"></x-navbar>
 <x-layout>
-    <x-slot name="navbar_slot">
-        <li class="nav-item">
-            <a class="nav-link active" href="/posts">Posts</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Something</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">else</a>
-        </li>
-    </x-slot>
-    <div class="container-fluid p-4">
-        <h1>List of all posts</h1>
-        @foreach ($posts as $post)
-            <li>{{ $post->title }}</li>
-        @endforeach
-    </div>
+    <span class="border border-4 bg-dark border-dark rounded text-light">
+        <div class="col-md-auto">
+            <div class="container-fluid p-4">
+                <h1>List of all posts</h1>
+                @foreach ($posts as $post)
+                    <li>{{ $post->title }}</li>
+                @endforeach
+            </div>
+        </div>
+    </span>
 </x-layout>
