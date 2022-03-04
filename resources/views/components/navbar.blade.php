@@ -1,3 +1,4 @@
+<!doctype html>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Coursework</a>
@@ -7,16 +8,34 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{{ route('home') }}">Home</a>
+                    @if ($active == 'home')
+                        <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
+                    @else
+                        <a class="nav-link" href="{{ route('home') }}">Home</a>
+                    @endif
                 </li>
-                {{ $slot }}
+                <li class="nav-item">
+                    @if ($active == 'all_posts')
+                        <a class="nav-link active" aria-current="page" href="{{ route('all_posts') }}">Posts</a>
+                    @else
+                        <a class="nav-link" href="{{ route('all_posts') }}">Posts</a>
+                    @endif
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('account') }}">My Account</a>
+                    @if ($active == 'account')
+                        <a class="nav-link active" aria-current="page" href="{{ route('all_posts') }}">My Account</a>
+                    @else
+                        <a class="nav-link" href="{{ route('account') }}">My Account</a>
+                    @endif
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('settings') }}">Settings</a>
+                    @if ($active == 'settings')
+                        <a class="nav-link active" aria-current="page" href="{{ route('settings') }}">Settings</a>
+                    @else
+                        <a class="nav-link" href="{{ route('settings') }}">Settings</a>
+                    @endif
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Logout</a>
