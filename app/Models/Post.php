@@ -18,6 +18,6 @@ class Post extends Model
     }
 
     public function viewed_by(){
-        return $this->belongsToMany(User::class, 'unique_post_view');
+        return $this->belongsToMany(User::class, 'unique_post_views');
     }
 }

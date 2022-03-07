@@ -9,7 +9,7 @@ use App\Models\Post;
 use App\Models\User;
 
 
-class UniquePostViewTableSeeder extends Seeder
+class UniquePostViewsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

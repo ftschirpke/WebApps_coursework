@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('unique_post_view', function (Blueprint $table) {
+        Schema::create('unique_post_views', function (Blueprint $table) {
             $table->primary(['post_id', 'user_id']);
             $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('user_id');
