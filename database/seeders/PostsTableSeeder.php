@@ -19,6 +19,7 @@ class PostsTableSeeder extends Seeder
         $first = new Post();
         $first->title = "Welcome!";
         $first->message = "Welcome to my Web App. I hope you like it.";
+        $first->image = "https://via.placeholder.com/150";
         $first->public = true;
         $first->user_id = 1;
         $first->save();
