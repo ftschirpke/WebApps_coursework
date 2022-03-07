@@ -3,7 +3,9 @@
         <div class="container-fluid p-4">
             <h1>{{ $post->title ?? 'Post without title' }}</h1>
 
-            <h5>by {{ $post->user->account->display_name }} </h5>
+            <h5>by <a class="text-warning" href="{{ route('account', ['id' => $post->user->id]) }}">
+                {{ $post->user->account->display_name }}
+            </a></h5>
                 
             <div class="clearfix">
                 @if (!is_null($post->image))
