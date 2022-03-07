@@ -16,11 +16,27 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
-        $first = new Comment();
-        $first->message = "Hello!";
-        $first->user_id = 2;
-        $first->post_id = 1;
-        $first->save();
+        $comment_messages = array("This", "post", "has", "a", "lot", "of", "comments", "but", "why?");
+        foreach ($comment_messages as $msg) {
+            $comment = new Comment();
+            $comment->message = $msg;
+            $comment->user_id = 2;
+            $comment->post_id = 1;
+            $comment->save();
+        }
+
+        $comment = new Comment();
+        $comment->message = "Little Red Riding Hood is boring...";
+        $comment->user_id = 1;
+        $comment->post_id = 2;
+        $comment->save();
+
+        $comment = new Comment();
+        $comment->message = "I like Little Red Riding Hood. \u{1F600}";
+        $comment->user_id = 2;
+        $comment->post_id = 2;
+        $comment->save();
+
 
         Comment::factory()->count(170)->create();
     }
