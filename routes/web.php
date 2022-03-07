@@ -28,8 +28,8 @@ Route::get('/settings', function () {
     return view('components.settings');
 })->name('settings');
 
-Route::get('/account', function () {
-    return view('components.account', ['account'=>User::find(1)->account]);
+Route::get('/account/{id}', function ($id) {
+    return view('components.account', ['account'=>User::find($id)->account]);
 })->name('account');
 
 Route::get('/dashboard', function () {
@@ -38,6 +38,6 @@ Route::get('/dashboard', function () {
 
 Route::get('/posts', [PostController::class, 'index'])->name('all_posts');
 
-Route::get('/posts/{id}', [PostController::class, 'show']);
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('post');
 
 require __DIR__.'/auth.php';

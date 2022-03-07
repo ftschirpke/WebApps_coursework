@@ -27,7 +27,7 @@
                     @if ($active == 'account')
                         <a class="nav-link active" aria-current="page" href="{{ route('all_posts') }}">My Account</a>
                     @else
-                        <a class="nav-link" href="{{ route('account') }}">My Account</a>
+                        <a class="nav-link" href="{{ route('account', ['id' => 1]) }}">My Account</a>
                     @endif
                 </li>
                 <li class="nav-item">
