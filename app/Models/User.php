@@ -53,4 +53,8 @@ class User extends Authenticatable
     public function account() {
         return $this->hasOne(Account::class);
     }
+
+    public function viewed_post(){
+        return $this->belongsToMany(Post::class, 'unique_post_view');
+    }
 }
