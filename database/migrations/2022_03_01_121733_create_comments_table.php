@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('message', 1000);
             $table->unsignedBigInteger('user_id');
+            // id of the user this comment was written by
             $table->unsignedBigInteger('post_id');
+            // id of the post which was commented on
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')

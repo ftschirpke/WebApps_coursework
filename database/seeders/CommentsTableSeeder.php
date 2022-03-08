@@ -16,6 +16,7 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
+        // seeding a lot of small comments on a single post
         $comment_messages = array("This", "post", "has", "a", "lot", "of", "comments", "but", "why?");
         foreach ($comment_messages as $msg) {
             $comment = new Comment();
@@ -31,8 +32,9 @@ class CommentsTableSeeder extends Seeder
         $comment->post_id = 2;
         $comment->save();
 
+        // seeding a comment on a user's own post
         $comment = new Comment();
-        $comment->message = "I like Little Red Riding Hood. \u{1F600}";
+        $comment->message = "I like Little Red Riding Hood. \u{1F600}"; // emojis work
         $comment->user_id = 2;
         $comment->post_id = 2;
         $comment->save();
