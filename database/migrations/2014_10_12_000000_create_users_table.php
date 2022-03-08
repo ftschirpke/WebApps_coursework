@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 50); // added a maximum length of 50
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password', 60);
+            // the hash function creates 60 character strings
+            // therefore, I can just limit the length of this string to 60
             $table->rememberToken();
             $table->timestamps();
         });
