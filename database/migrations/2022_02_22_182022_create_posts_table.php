@@ -17,9 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('title', 60);
             $table->string('message', 5000);
-            $table->binary('image')->nullable();
+            $table->binary('image')->nullable(); // images are optional
+            // these will be real images later, for now
+            // they are just links to images on the web
             $table->boolean('public');
             $table->unsignedBigInteger('user_id');
+            // id of the user this post was written by
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')

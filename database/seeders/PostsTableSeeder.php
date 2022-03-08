@@ -20,7 +20,8 @@ class PostsTableSeeder extends Seeder
         $first->title = "Welcome!";
         $first->message = "Welcome to my Web App. I hope you like it.";
         $first->image = "https://via.placeholder.com/150";
-        $first->public = true;
+        // optionally posts can have an image
+        $first->public = true; // public post - visible to every user
         $first->user_id = 1;
         $first->save();
 
@@ -71,6 +72,8 @@ class PostsTableSeeder extends Seeder
         She was surprised to find the cottage-door standing open, and when she went into the room, she had such a strange feeling that she said to herself, oh dear, how uneasy I feel to-day, and at other times I like being with grandmother so much.\n\n
         
         (The second part of the story will follow in my next post)";
+        // I just pasted the first half of little red riding hood here
+        // as an example of a very long post
         $second->public = false; // private post - only visible to friends
         $second->user_id = 2;
         $second->save();
@@ -116,6 +119,8 @@ class PostsTableSeeder extends Seeder
         Soon afterwards the wolf knocked, and cried, \"open the door, grandmother, I am Little Red Riding Hood, and am bringing you some cakes.\"\n
         
         But they did not speak, or open the door, so the grey-beard stole twice or thrice round the house, and at last jumped on the roof, intending to wait until Little Red Riding Hood went home in the evening, and then to steal after her and devour her in the darkness. But the grandmother saw what was in his thoughts. In front of the house was a great stone trough, so she said to the child, take the pail, Little Red Riding Hood. I made some sausages yesterday, so carry the water in which I boiled them to the trough. Little Red Riding Hood carried until the great trough was quite full. Then the smell of the sausages reached the wolf, and he sniffed and peeped down, and at last stretched out his neck so far that he could no longer keep his footing and began to slip, and slipped down from the roof straight into the great trough, and was drowned. But Little Red Riding Hood went joyously home, and no one ever did anything to harm her again.";
+        // I just pasted the second half of little red riding hood here
+        // as an example of a very long post
         $third->public = false; // private post - only visible to friends
         $third->user_id = 2;
         $third->save();
