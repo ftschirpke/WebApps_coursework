@@ -26,12 +26,13 @@ class UniquePostViewsTableSeeder extends Seeder
         // first post was viewed by everyone
         // but the creator itself doesn't count
         
-        $factory_created_posts = Post::all()->except(1);
+        $posts_except_first = Post::all()->except(1);
         $users = User::all();
         $user_count = User::count();
         
-        foreach ($factory_created_posts as $post) {
+        foreach ($posts_except_first as $post) {
             // all the other posts were viewed by a random amount of people
+            // but the creator itself is still excluded
             $post->viewed_by()->attach(
                 $users->except($post->user->id)->random(rand(0, $user_count-1))
                     ->pluck('id')->toArray()

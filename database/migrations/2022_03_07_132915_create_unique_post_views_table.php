@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('unique_post_views', function (Blueprint $table) {
             $table->primary(['post_id', 'user_id']);
+            // the user corresponding user_id has seen
+            // the post corresponding to post_id
             $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
