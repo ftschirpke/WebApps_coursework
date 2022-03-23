@@ -22,7 +22,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             // id of the user this data belongs to
-            $table->string('display_name');
+            $table->string('display_name', 30);
             $table->binary('icon')->nullable(); // icons are optional
             // these will be real images later, for now
             // they are just links to images on the web

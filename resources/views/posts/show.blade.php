@@ -1,37 +1,40 @@
+<x-navbar active=""></x-navbar>
+
 <x-layout>
     <x-slot name="title">
     {{ $post->title }}
     </x-slot>
-    <x-slot name="navbar_slot">
-        <li class="nav-item">
-            <a class="nav-link active" href="/posts">Posts</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Something</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">else</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown link
-            </a>
-            <ul class="dropdown-menu bg-secondary" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-        </li>
-    </x-slot>
 
-    <h5>by {{ $post->user->account->display_name }} </h5>
+    <x-post :post='$post'></x-post>
     
-
-    <div class="clearfix">
-        @if (!is_null($post->image))
-            <img src="{{ asset($post->image) }}" class="img-fluid pt-1 pe-3 pb-3 float-sm-start"/>
-        @endif
-        <p class="pull-left">{{ $post->message }}</p>
+    <div class="row">
+        <div class="col">
+            <div class="d-flex p-4">
+                <h3>Comments ({{ $post->comments()->count() }})</h3>
+            </div>
+        </div>
+        <div class="col">
+            <div class="d-flex p-4 justify-content-center">
+                {{ $post->comments()->paginate(10)->links() }}
+            </div>
+        </div>
+        <div class="col"></div>
     </div>
+    @foreach ($post->comments()->paginate(10) as $comment)
+    <div class="container-fluid p-2 bg-secondary">
+        <div class="row" justify-content-md-center>
+            <div class="col col-1"></div>
+                <div class="col col-10">
+                    <div class="row">
+                        <x-comment :comment="$comment"></x-comment>
+                    </div>
+                </div>
+            <div class="col col-1"></div>
+        </div>
+    </div>
+    @endforeach<div class="d-flex p-4 justify-content-center">
+    {{ $post->comments()->paginate(10)->links() }}
+    </div>
+    
 
 </x-layout>
