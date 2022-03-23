@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Account;
 
-use App\Models\Post;
-
-class PostController extends Controller
+class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        return view('posts.index', ['posts'=>$posts]);
+        //
     }
 
     /**
@@ -43,12 +41,12 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Post $post
+     * @param  Account $account
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Account $account)
     {
-        return view('posts.show', ['post'=>$post]);
+        return view('accounts.show', ['account'=>$account]);
     }
 
     /**

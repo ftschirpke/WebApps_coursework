@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,20 +18,19 @@ use App\Models\User;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home', function() {
     return view('components.home');
 })->name('home');
+
+Route::get('/home', function() {
+    return redirect('/');
+});
 
 Route::get('/settings', function () {
     return view('components.settings');
 })->name('settings');
 
-Route::get('/account/{id}', function ($id) {
-    return view('components.account', ['account'=>User::find($id)->account]);
-})->name('account');
+Route::get('/account/{account}', [AccountController::class, 'show'])
+    ->name('accounts.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

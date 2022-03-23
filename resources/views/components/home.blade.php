@@ -1,4 +1,4 @@
-<x-navbar active="home"></x-navbar>
-<x-layout>
+<x-navbar active="home"/>
+<x-app-layout>
     <h1>Home</h1>
-</x-layout>
+</x-app-layout>

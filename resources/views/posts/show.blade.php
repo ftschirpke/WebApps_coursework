@@ -1,6 +1,6 @@
-<x-navbar active=""></x-navbar>
+<x-navbar active=""/>
 
-<x-layout>
+<x-app-layout>
     <x-slot name="title">
     {{ $post->title }}
     </x-slot>
@@ -23,9 +23,10 @@
             <div class="col col-1"></div>
         </div>
     </div>
-    @endforeach<div class="d-flex p-4 justify-content-center">
+    @endforeach
+    <div class="d-flex p-4 justify-content-center">
         {{ $post->comments()->paginate(10) }}
     </div>
     
 
-</x-layout>
+</x-app-layout>

@@ -3,9 +3,11 @@
         <div class="container-fluid p-4">
             <h1>{{ $post->title ?? 'Post without title' }}</h1>
 
-            <h5>{{ $post->public ? "Public Post" : "Private Post" }} by <a class="text-warning" href="{{ route('account', ['id' => $post->user->id]) }}">
-                {{ $post->user->account->display_name }}
-            </a></h5>
+            <h5>{{ $post->public ? "Public Post" : "Private Post" }} by 
+                <a class="text-warning" href="{{ route('accounts.show', ['account' => $post->user->account]) }}">
+                    {{ $post->user->account->display_name }}
+                </a>
+            </h5>
                 
             <div class="clearfix">
                 @if (!is_null($post->image))

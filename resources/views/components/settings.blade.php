@@ -1,4 +1,4 @@
-<x-navbar active="settings"></x-navbar>
-<x-layout>
+<x-navbar active="settings"/>
+<x-app-layout>
     <h1>Settings</h1>
-</x-layout>
+</x-app-layout>
