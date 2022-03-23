@@ -6,7 +6,9 @@
             </a></h6>
             
             <div class="clearfix">
-                <p class="pull-left">{{ $comment->message }}</p>
+                <p class="pull-left">{!! nl2br(e($comment->message)) !!}</p>
+                <!-- this converts line breaks to br-tags, such that
+                    the text is still nicely formatted -->
             </div>
         </div>
     </div>
