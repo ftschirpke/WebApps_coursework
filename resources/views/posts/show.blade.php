@@ -27,6 +27,5 @@
     <div class="d-flex p-4 justify-content-center">
         {{ $post->comments()->paginate(10) }}
     </div>
-    
 
 </x-app-layout>

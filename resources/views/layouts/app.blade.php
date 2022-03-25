@@ -15,6 +15,11 @@
             <div class="container pt-4">
                 <div class="row justify-content-md-center">
                     <div class="col-lg-2"></div>
+                    @if (session('flash_msg'))
+                    <div class="alert alert-dark">
+                        {{ session('flash_msg') }}
+                    </div>
+                    @endif
                     {{ $slot }}
                     <div class="col-lg-2"></div>
                 </div>

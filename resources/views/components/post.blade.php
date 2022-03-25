@@ -2,7 +2,11 @@
     <div class="col-md-auto">
         <div class="container-fluid p-4">
             <h1>{{ $post->title ?? 'Post without title' }}</h1>
-            
+            <form method="POST" action="{{ route('posts.destroy', $post) }}">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-warning" type="submit">Delete this Post</button>
+            </form>
             <div class="row mb-2">
                 <div class="col-5">
                     <h5>{{ $post->public ? "Public Post" : "Private Post" }} by 

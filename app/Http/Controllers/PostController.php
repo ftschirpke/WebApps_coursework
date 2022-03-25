@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -26,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -37,7 +38,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:60',
+            'image' => 'nullable|image',
+            'public' => 'required|boolean',
+            'message' => 'required|max:5000'
+        ]);
+        $post = new Post();
+        $post->user_id = Auth::id();
+        $post->title = $validatedData['title'];
+        $post->image = $validatedData['image'];
+        $post->public = $validatedData['public'];
+        $post->message = $validatedData['message'];
+        $post->save();
+        return redirect()->route('posts.show', $post)
+            ->with('flash_msg', 'Post was created');
     }
 
     /**
@@ -80,8 +95,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('posts.index')
+            ->with('flash_msg', 'Post was deleted');
     }
 }

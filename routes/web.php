@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\PostController;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\User;
@@ -21,10 +22,6 @@ Route::get('/', function () {
     return view('components.home');
 })->name('home');
 
-Route::get('/home', function() {
-    return redirect('/');
-});
-
 Route::get('/settings', function () {
     return view('components.settings');
 })->name('settings');
@@ -38,7 +35,13 @@ Route::get('/dashboard', function () {
 
 Route::get('/posts', [PostController::class, 'index'])
     ->name('posts.index');
+Route::get('/posts/create', [PostController::class, 'create'])
+    ->name('posts.create')->middleware('auth');
+Route::post('/posts', [PostController::class, 'store'])
+    ->name('posts.store')->middleware('auth');
 Route::get('/posts/{post}', [PostController::class, 'show'])
     ->name('posts.show');
+Route::delete('/posts/{post}', [PostController::class, 'destroy'])
+    ->name('posts.destroy')->middleware(['auth']);
 
 require __DIR__.'/auth.php';
