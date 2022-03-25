@@ -42,6 +42,6 @@ Route::post('/posts', [PostController::class, 'store'])
 Route::get('/posts/{post}', [PostController::class, 'show'])
     ->name('posts.show');
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])
-    ->name('posts.destroy')->middleware(['auth']);
+    ->name('posts.destroy')->middleware(['auth', 'owner:post']);
 
 require __DIR__.'/auth.php';
