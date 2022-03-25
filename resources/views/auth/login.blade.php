@@ -30,7 +30,7 @@
                         </label>
                     </div>
                     <div class="p-2">
-                        <button class="btn btn-warning col-12" type="button">Log in</button>
+                        <button class="btn btn-warning col-12" type="submit">Log in</button>
                     </div>
 
                     <div class="row p-2">

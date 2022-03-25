@@ -29,7 +29,7 @@
                 <input class="form-control" id="password_confirmation" type="password" name="password_confirmation" placeholder="Confirm Password" required />
             </div>
             <div class="p-2">
-                <button class="btn btn-warning col-12" type="button">Register</button>
+                <button class="btn btn-warning col-12" type="submit">Register</button>
             </div>
 
             <div class="clearfix p-2">
