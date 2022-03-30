@@ -1,24 +1,19 @@
 <x-navbar active="register"/>
 <x-app-layout>
     <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-auth-validation-errors :errors="$errors" />
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
             <div class="input-group input-group-md p-2">
                 <!-- Name -->
-                <input class="form-control" id="name" type="text" name="name" placeholder="Full Name" :value="old('name')" required autofocus />
+                <input class="form-control" id="name" type="text" name="name" placeholder="Full Name" value="{{ old('name') }}" required autofocus />
             </div>
             <div class="input-group input-group-md p-2">
                 <!-- Email Address -->
-                <input class="form-control" id="email" type="email" name="email" placeholder="Email" :value="old('email')" required />
+                <input class="form-control" id="email" type="email" name="email" placeholder="Email" value="{{ old('email') }}" required />
             </div>
             <div class="input-group input-group-md p-2">
                 <!-- Password -->
