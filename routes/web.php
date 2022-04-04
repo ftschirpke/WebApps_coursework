@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
@@ -43,5 +44,8 @@ Route::get('/posts/{post}', [PostController::class, 'show'])
     ->name('posts.show');
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])
     ->name('posts.destroy')->middleware(['auth', 'owner:post']);
+
+Route::get('/comments/create', [CommentController::class, 'create'])
+    ->name('comments.create')->middleware('auth');
 
 require __DIR__.'/auth.php';

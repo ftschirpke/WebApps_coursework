@@ -9,9 +9,9 @@
     
     <!-- <h3>Comments</h3> -->
     <div class="d-flex p-4 justify-content-center">
-        {{ $post->comments()->paginate(10)->links() }}
+        {{ $comments->links() }}
     </div>
-    @foreach ($post->comments()->paginate(10) as $comment)
+    @foreach ($comments as $comment)
     <div class="container-fluid p-2 bg-secondary">
         <div class="row" justify-content-md-center>
             <div class="col col-1"></div>
@@ -24,6 +24,19 @@
         </div>
     </div>
     @endforeach
+    @if (!$comments->hasMorePages())
+        <div class="container-fluid p-2 bg-secondary">
+            <div class="row" justify-content-md-center>
+                <div class="col col-1"></div>
+                    <div class="col col-10">
+                        <div class="d-flex p-1 justify-content-center">
+                            <button type="submit" class="btn btn-warning">Create Comment</button>
+                        </div>
+                    </div>
+                <div class="col col-1"></div>
+            </div>
+        </div>    
+    @endif
     <div class="d-flex p-4 justify-content-center">
         {{ $post->comments()->paginate(10) }}
     </div>
