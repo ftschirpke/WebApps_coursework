@@ -43,7 +43,7 @@ Route::post('/posts', [PostController::class, 'store'])
 Route::get('/posts/{post}', [PostController::class, 'show'])
     ->name('posts.show');
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])
-    ->name('posts.destroy')->middleware(['auth', 'owner:post']);
+    ->name('posts.destroy')->middleware(['auth', 'can:delete,post']);
 
 Route::get('/comments/create', [CommentController::class, 'create'])
     ->name('comments.create')->middleware('auth');
