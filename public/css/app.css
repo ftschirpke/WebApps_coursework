@@ -44,6 +44,11 @@ a {
     border-color: var(--warning);
 }
 
+.page-link:hover {
+    color: var(--warning);
+    background-color: var(--secondary);
+}
+
 .page-link {
     color: var(--warning);
     background-color: var(--dark);
