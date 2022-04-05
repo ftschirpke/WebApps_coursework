@@ -24,6 +24,7 @@ class UsersTableSeeder extends Seeder
         $test1->password = Hash::make("test1");
         // hash of the password
         // -> you can sign in by typing "test1"
+        $test1->is_admin = true;
         $test1->setRememberToken("aaaabcaaaa"); // up to 100 characters, so 10 is fine
         // setting the remember although it's nullable
         // because the framework doesn't use it, when it's null
@@ -36,6 +37,7 @@ class UsersTableSeeder extends Seeder
         $test2->email = "hilarious@email.com";
         $test2->email_verified_at = now();
         $test2->password = Hash::make("test2");
+        $test2->is_admin = false;
         $test2->setRememberToken("bbbbcdbbbb");
         $test2->save();
 

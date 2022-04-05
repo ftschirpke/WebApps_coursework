@@ -72,7 +72,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return ($user->id === $post->user_id)
+        return ($user->id === $post->user_id || $user->is_admin)
             ? Response::allow()
             : Response::deny("Only the post owner and admins can delete a post.");
     }
