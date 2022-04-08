@@ -60,7 +60,7 @@
                             </div>
                         @enderror
                     </div>
-                    <div class="form-group p-2">
+                    <div class="form-group p-2 text-center">
                         <button type="submit" class="btn btn-warning">Create Post</button>
                     </div>
 

@@ -63,7 +63,17 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show', ['post'=>$post, 'comments'=>$post->comments()->paginate(10)]);
+        return view('posts.show',
+            ['post'=>$post, 'comments'=>$post->comments()->paginate(5)]
+        );
+    }
+
+    public function testing() {
+        return "hello there";
+    }
+
+    public function apiShow(Post $post) {
+        return $post->comments()->paginate(5);
     }
 
     /**

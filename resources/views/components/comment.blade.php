@@ -1,4 +1,4 @@
-<span class="border border-4 bg-secondary border-dark rounded text-light">
+<span class="border border-4 bg-secondary border-dark rounded text-light" id="c{{ $comment->id }}">
     <div class="col">
         <div class="container-fluid p-4">
             <h6>by <a class="text-warning" href="{{ route('accounts.show', ['account' => $comment->user->account]) }}">
