@@ -43,7 +43,7 @@
                                         <div class="form-group p-2">
                                             <textarea class="form-control textarea-autosize" id="message" rows="3" 
                                                 name="message" placeholder="Message of the Comment"
-                                                aria-describedby="message_help" required autofocus
+                                                aria-describedby="message_help" required
                                             />{{ old('message') }}</textarea>
                                             <small class="form-text text-light" id="message_help">
                                                 Your comment message must be no more than 1000 characters long.
