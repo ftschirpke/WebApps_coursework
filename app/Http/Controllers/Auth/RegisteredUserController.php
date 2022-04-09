@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -49,6 +50,12 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        $account = new Account();
+        $account->user_id = $user->id;
+        $account->display_name = substr($user->name, 0, 30);
+        $account->save();
+
+        return redirect(RouteServiceProvider::HOME)
+            ->with('flash_msg', 'Your account was created. You might want to check out your \'My Account\' and \'Settings\' pages for customisation.');
     }
 }

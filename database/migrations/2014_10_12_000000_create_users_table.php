@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password', 60);
             // the hash function creates 60 character strings
             // therefore, I can just limit the length of this string to 60
-            $table->boolean('is_admin');
+            $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
