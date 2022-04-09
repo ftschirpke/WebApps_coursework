@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Notifications\PostWasCommentedOn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,6 +46,9 @@ class CommentController extends Controller
         $comment->post_id = $validatedData['post_id'];
         $comment->message = $validatedData['message'];
         $comment->save();
+
+        $comment->post->user->notify(new PostWasCommentedOn($comment));
+
         $comment_descr = array(
             'message' => $comment->message,
             'accountRoute' => route('accounts.show', ['account' => $comment->user->account]),

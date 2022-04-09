@@ -46,17 +46,18 @@ class PostWasCommentedOn extends Notification
         if (strlen($this->comment->message) <= 50) {
             $comment_extract = $this->comment->message;
         } else {
-            $comment_extract = substr($this->comment->message, 0, 20) . "...";
+            $comment_extract = substr($this->comment->message, 0, 50) . "...";
         }
 
         $comment_path = route('posts.show', ['post' => $this->post])
             . '#c' . $this->comment->id;
 
         return (new MailMessage)
+            ->subject('Your post was commented on.')
             ->line('Your post \'' . $this->post->title . '\' was commented on.')
-            ->line('the user ' . $this->comment->user . ' wrote:')
+            ->line('The user \'' . $this->comment->user->account->display_name . '\' wrote:')
             ->line($comment_extract)
-            ->action('To see the comment, click here: ', url($comment_path) )
+            ->action('To see the comment, click here', url($comment_path) )
             ->line('Thank you for using my application!');
     }
 
