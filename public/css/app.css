@@ -58,3 +58,7 @@ a {
     background-color: var(--dark);
     color: var(--secondary);
 }
+
+pre {
+    white-space: pre-wrap;
+}
