@@ -20,7 +20,7 @@
         <!-- He Encoder/Decoder -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.min.js" integrity="sha512-PEsccDx9jqX6Dh4wZDCnWMaIO3gAaU0j46W//sSqQhUQxky6/eHZyeB3NrXD2xsyugAKd4KPiDANkcuoEa2JuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         
-        <title>{{ $title ?? '(Course)work in progress'}}</title>
+        <title>{{ $title ?? 'Postnint'}}</title>
     </head>
     <body class="bg-secondary text-dark">
         <main>
