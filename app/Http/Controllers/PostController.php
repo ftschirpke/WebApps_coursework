@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Post;
-use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -45,7 +44,7 @@ class PostController extends Controller
             'message' => 'required|max:5000'
         ]);
         $post = new Post();
-        $post->user_id = Auth::id();
+        $post->user_id = $request->user()->id;
         $post->title = $validatedData['title'];
         $post->image = $validatedData['image'];
         $post->public = $validatedData['public'];
@@ -63,17 +62,24 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show',
-            ['post'=>$post, 'comments'=>$post->comments()->paginate(5)]
-        );
+        return view('posts.show', ['post'=>$post]);
     }
 
-    public function testing() {
-        return "hello there";
-    }
-
-    public function apiShow(Post $post) {
-        return $post->comments()->paginate(5);
+    public function apiShow(Post $post, $offset = 0) {
+        $comments_slice = collect($post->comments)->slice($offset, 5)->values();
+        if ($comments_slice->isEmpty()) {
+            return false;
+        }
+        $comments_data = array();
+        foreach ($comments_slice as $comment) {
+            $comment_descr = array(
+                'message' => $comment->message,
+                'accountRoute' => route('accounts.show', ['account' => $comment->user->account]),
+                'accountDisplayName' => $comment->user->account->display_name
+            );
+            array_push($comments_data, $comment_descr);
+        }
+        return response()->json($comments_data);
     }
 
     /**

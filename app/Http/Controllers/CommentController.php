@@ -25,7 +25,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        return view('comments.create');
+        //
     }
 
     /**
@@ -36,13 +36,21 @@ class CommentController extends Controller
      */
     public function apiStore(Request $request) {
         $validatedData = $request->validate([
-            'message' => 'required|max:1000'
+            'message' => 'required|max:1000',
+            'post_id' => 'exists:App\Models\Post,id',
+            'user_id' => 'exists:App\Models\User,id'
         ]);
         $comment = new Comment();
-        $comment->user_id = Auth::id();
+        $comment->user_id = $validatedData['user_id'];
+        $comment->post_id = $validatedData['post_id'];
         $comment->message = $validatedData['message'];
         $comment->save();
-        return $comment;
+        $comment_descr = array(
+            'message' => $comment->message,
+            'accountRoute' => route('accounts.show', ['account' => $comment->user->account]),
+            'accountDisplayName' => $comment->user->account->display_name
+        );
+        return response()->json($comment_descr);
     }
 
     /**

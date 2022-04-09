@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,9 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-
-Route::get('post/{post}', [PostController::class, 'apiShow'])
+Route::get('/api/posts/{post}/{offset?}', [PostController::class, 'apiShow'])
     ->name('api.posts.show');
 
-Route::get('test', [PostController::class, 'testing'])->name('api.test');
+// Route::middleware('auth:sanctum')->group(function () {
+// });
+
+Route::post('/api/comments/store', [CommentController::class, 'apiStore'])
+    ->name('api.comments.store');

@@ -1,26 +1,61 @@
-// searching for "cc"-parameter in url parameters
-const query = window.location.search;
-const params = new URLSearchParams(query);
-// this parameter says if we are creating a comment
-let creating_comment = params.get("cc") ? true : false;
-
 const App = {
+    created() {
+        allCommentsReceived: false
+    },
     data() {
         return {
-            cc: creating_comment,
-            comments: bladeParams.comments_pagination.data
+            comments: []
         }
-    }//,
-    // mounted() {
-    //     axios.get("{{ route('api.posts.show', ['post'=>$post]) }}")
-    //         .then(response=>{
-    //             this.comments.push(response.data.data);
-    //             console.log(this.comments);
-    //         })
-    //         .catch(response=>{
-    //             console.log("Error:")
-    //             console.log(response);
-    //         })
-    // }
+    },
+    methods: {
+        createComment() {
+            axios.post(bladeParams.commentsStoreRoute, {
+                user_id: bladeParams.userId,
+                post_id: bladeParams.postId,
+                message: document.getElementById('message').value
+            })
+                .then(response=>{
+                    this.comments.unshift(response.data);
+                    document.getElementById('message').value='';
+                })
+                .catch(response=>{
+                    console.log(response);
+                })
+        },
+        getMoreComments() {
+            if (this.allCommentsReceived) return;
+            axios.get(
+                bladeParams.postRoute.replace('offset_value', this.comments.length)
+            )
+                .then(response=>{
+                    if (response.data) {
+                        this.comments.push(...response.data);
+                    } else {
+                        this.allCommentsReceived = true;
+                    }    
+                })
+                .catch(response=>{
+                    console.log(response);
+                })
+        },
+        scroll () {
+            window.onscroll = () => {
+                let windowPos = Math.max(
+                    window.pageYOffset,
+                    document.documentElement.scrollTop,
+                    document.body.scrollTop
+                )
+                let windowBottom = windowPos + window.innerHeight;                
+                if (windowBottom === document.documentElement.offsetHeight) {
+                    // scrolled to the bottom
+                    this.getMoreComments(this.commentsCount);
+                }
+            }
+        }
+    },
+    mounted() {
+        this.getMoreComments(this.commentsCount);
+        this.scroll();
+    }
 };
-Vue.createApp(App).mount('#cc');
+Vue.createApp(App).mount('#commentManagement');

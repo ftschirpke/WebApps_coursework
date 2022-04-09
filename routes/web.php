@@ -31,7 +31,7 @@ Route::get('/account/{account}', [AccountController::class, 'show'])
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware('auth')->name('dashboard');
 
 Route::get('/posts', [PostController::class, 'index'])
     ->name('posts.index');
@@ -43,9 +43,6 @@ Route::get('/posts/{post}', [PostController::class, 'show'])
     ->name('posts.show');
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])
     ->name('posts.destroy')->middleware(['auth', 'can:delete,post']);
-
-Route::get('/comments/create', [CommentController::class, 'create'])
-    ->name('comments.create')->middleware('auth');
 
 Route::get('/cod', [AccountController::class, 'cod'])
     ->name('cod');

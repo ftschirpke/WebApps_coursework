@@ -11,8 +11,10 @@
     </form>
 
     
-    <a href="{{ route('api.test') }}">link</a>
     <a href="{{ route('api.posts.show', ['post' => \App\Models\Post::find(1)]) }}">link2</a>
+    <a href="{{ route('api.posts.show', ['post' => \App\Models\Post::find(1), 'offset' => 3]) }}">link2</a>
+    <a href="{{ route('api.posts.show', ['post' => \App\Models\Post::find(1), 'offset' => 6]) }}">link2</a>
+    <a href="{{ route('api.posts.show', ['post' => \App\Models\Post::find(1), 'offset' => 9]) }}">link2</a>
     <!-- <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}

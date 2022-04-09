@@ -7,43 +7,46 @@
 
     <x-post :post='$post'></x-post>
     
-    <!-- <h3>Comments</h3> -->
-    <div class="d-flex p-4 justify-content-center">
-        {{ $comments->links() }}
+    @guest
+    <div class="container-fluid p-2 bg-secondary">
+        <div class="row" justify-content-md-center>
+            <div class="col col-1"></div>
+            <div class="col col-10">
+                <div class="row">
+                    <div class="col">
+                        <div class="container-fluid p-4 text-center">
+                            <h4>To see and create comments, log in:</h4>
+                            <form action="{{ route('login') }}">
+                                <button type="submit" class="btn btn-warning ms-2">Log in</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-1"></div>
+        </div>
     </div>
-
-    <div id="cc">
-        @foreach ($comments as $comment)
+    @endguest
+    @auth
+    <div id="commentManagement">
         <div class="container-fluid p-2 bg-secondary">
             <div class="row" justify-content-md-center>
                 <div class="col col-1"></div>
                 <div class="col col-10">
                     <div class="row">
-                        <x-comment :comment="$comment"></x-comment>
-                    </div>
-                </div>
-                <div class="col col-1"></div>
-            </div>
-        </div>
-        @endforeach
-        <div v-if="cc" class="container-fluid p-2 bg-secondary">
-            <ul>
-                <li v-for="comment in comments">@{{ comment.message }}</li>
-            </ul>
-            <div class="row" justify-content-md-center>
-                <div class="col col-1"></div>
-                <div class="col col-10">
-                    <div class="row">
-                        <span v-if="cc" class="border border-4 bg-secondary border-dark rounded text-light">
+                        <span class="border border-4 bg-secondary border-dark rounded text-light">
                             <div class="col">
                                 <div class="container-fluid p-4">
                                     <h3>Create a Comment</h3>
-                                    <form method="POST" action="#">
+                                    <form @submit.prevent="createComment">
                                         @csrf
                                         <div class="form-group p-2">
-                                            <textarea class="form-control textarea-autosize" id="message" rows="3" name="message" placeholder="Message of the Post" aria-describedby="message_help" required autofocus/>{{ old('message') }}</textarea>
+                                            <textarea class="form-control textarea-autosize" id="message" rows="3" 
+                                                name="message" placeholder="Message of the Comment"
+                                                aria-describedby="message_help" required autofocus
+                                            />{{ old('message') }}</textarea>
                                             <small class="form-text text-light" id="message_help">
-                                                Your post message must be no more than 1000 characters long.
+                                                Your comment message must be no more than 1000 characters long.
                                             </small>
                                             @error('message')
                                             <div class="alert alert-danger mt-2 p-2">
@@ -52,8 +55,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group text-center">
-                                            <button @click="cc = false" class="btn btn-warning me-2">Cancel</button>
-                                            <button type="submit" class="btn btn-warning ms-2">Create Post</button>
+                                            <button type="submit" class="btn btn-warning ms-2">Create Comment</button>
                                         </div>
                                     </form>
                                 </div>
@@ -63,31 +65,45 @@
                 </div>
                 <div class="col col-1"></div>
             </div>
+        </div>
+        <div v-for="comment in comments" class="container-fluid p-2 bg-secondary">
             <div class="row" justify-content-md-center>
                 <div class="col col-1"></div>
                 <div class="col col-10">
-                    <div class="d-flex p-2 justify-content-center">
-                        @if ($comments->hasMorePages())
-                        <a href="{{ $comments->url($comments->lastPage()) . '&cc=true' . '#' . $comments->lastItem() }}" class="btn btn-warning" role="button">Create Comment</a>
-                        @else
-                        <button v-if="!cc" @click="cc = true" type="submit" class="btn btn-warning">Create Comment</button>
-                        @endif
+                    <div class="row">
+                        <span class="border border-4 bg-secondary border-dark rounded text-light">
+                            <div class="col">
+                                <div class="container-fluid p-4">
+                                    <h6>by <a class="text-warning" :href="comment.accountRoute">
+                                        @{{ comment.accountDisplayName }}
+                                    </a></h6>
+                                    
+                                    <div class="clearfix">
+                                        <p class="pull-left">
+                                            <pre>@{{ comment.message }}</pre>
+                                        </p>
+                                        <!-- this converts line breaks to br-tags, such that
+                                        the text is still nicely formatted -->
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
                     </div>
                 </div>
                 <div class="col col-1"></div>
-                {{ route('api.posts.show', ['post'=>$post]) }}
             </div>
         </div>
-        <div class="d-flex p-4 justify-content-center">
-            {{ $comments->links() }}
-        </div>
     </div>
+    @endauth
 
     <script>
         const bladeParams = {
-            comments_pagination: JSON.parse(he.decode("{{ $comments->toJson() }}"))
+            userId: "{{ Auth::id() }}",
+            postId: "{{ $post->id }}",
+            postRoute: "{{ route('api.posts.show', ['post'=>$post, 'offset' => 'offset_value']) }}",
+            commentsStoreRoute: "{{ route('api.comments.store') }}"
         };
-    </script>
+        </script>
     <script type="text/javascript" src="{{ URL::asset('js/comments.create.js') }}"></script>
-
+    
 </x-app-layout>
