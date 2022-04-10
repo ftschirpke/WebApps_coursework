@@ -62,3 +62,21 @@ a {
 pre {
     white-space: pre-wrap;
 }
+
+.form-control:focus {
+    border-color: var(--warning);
+    box-shadow: var(--warning) / 25%;
+}
+
+.dropdown-menu {
+    background-color: var(--warning);
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    color: var(--warning);
+    background-color: var(--dark);
+}
+
+.pagination {
+    justify-content: center;
+}

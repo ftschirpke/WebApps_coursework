@@ -2,6 +2,52 @@
     <div class="col-md-auto">
         <div class="container-fluid p-4">
             <h1>{{ $post->title ?? 'Post without title' }}</h1>
+            <div class="row">
+                <div class="col-5">
+                    <h5>{{ $post->public ? "Public Post" : "Private Post" }} by 
+                        <a class="text-warning" href="{{ route('accounts.show', ['account' => $post->user->account]) }}">
+                            {{ $post->user->account->display_name }}
+                        </a>
+                    </h5>
+                </div>
+                <div class="col text-end">
+                    created
+                    @if (now()->subWeeks(1)->greaterThan($post->created_at))
+                        at {{ $post->created_at }}
+                    @else
+                        {{ now()->longAbsoluteDiffForHumans($post->created_at) }}
+                        ago
+                    @endif
+                    @if ( $post->updated_at != $post->created_at )
+                        and updated
+                        @if (now()->subWeeks(1)->greaterThan($post->updated_at))
+                            at {{ $post->updated_at }}
+                        @else
+                            updated
+                            {{ now()->longAbsoluteDiffForHumans($post->updated_at) }}
+                            ago
+                        @endif
+                    @endif
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col text-top-start">
+                    viewed by {{ $post->users_viewed_by->count() }} users
+                </div>
+            </div>
+                
+            <div class="clearfix">
+                @if (!is_null($post->image_name))
+                    @if (str_starts_with($post->image_name, 'http'))
+                    <img src="{{ asset($post->image_name) }}" class="img-fluid pt-1 pe-3 pb-3 float-sm-start"/>
+                    @else
+                    <img src="{{ asset('storage/post_images/' . $post->image_name) }}" class="img-fluid pt-1 pe-3 pb-3 float-sm-start"/>
+                    @endif
+                @endif
+                <p class="pull-left">{!! nl2br(e($post->message)) !!}</p>
+                <!-- this converts line breaks to br-tags, such that
+                    the text is still nicely formatted -->
+            </div>
             <div class="row mb-2 mt-1">
                 <div class="col">
                     @if (!$report)
@@ -62,8 +108,10 @@
                     </div>
                     @endauth
                     @endif
+                </div>
                 
-                    @can('delete', $post)
+                @can('delete', $post)
+                <div class="col text-end">
                     <x-delete-button type="Post">
                         <form method="POST" action="{{ route('posts.destroy', $post) }}">
                             @csrf
@@ -71,39 +119,8 @@
                             <button class="btn btn-warning" type="submit">Yes</button>
                         </form>
                     </x-delete-button>
-                    @endcan
                 </div>
-                <div class="col text-end">
-                    Created on {{ $post->created_at }}
-                    @if ( $post->updated_at != $post->created_at )
-                    and Updated on {{ $post->updated_at }}
-                    @endif
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-5">
-                    <h5>{{ $post->public ? "Public Post" : "Private Post" }} by 
-                        <a class="text-warning" href="{{ route('accounts.show', ['account' => $post->user->account]) }}">
-                            {{ $post->user->account->display_name }}
-                        </a>
-                    </h5>
-                </div>
-                <div class="col-7 text-end">
-                    viewed by {{ $post->users_viewed_by->count() }} users
-                </div>
-            </div>
-                
-            <div class="clearfix">
-                @if (!is_null($post->image_name))
-                    @if (str_starts_with($post->image_name, 'http'))
-                    <img src="{{ asset($post->image_name) }}" class="img-fluid pt-1 pe-3 pb-3 float-sm-start"/>
-                    @else
-                    <img src="{{ asset('storage/post_images/' . $post->image_name) }}" class="img-fluid pt-1 pe-3 pb-3 float-sm-start"/>
-                    @endif
-                @endif
-                <p class="pull-left">{!! nl2br(e($post->message)) !!}</p>
-                <!-- this converts line breaks to br-tags, such that
-                    the text is still nicely formatted -->
+                @endcan
             </div>
         </div>
     </div>

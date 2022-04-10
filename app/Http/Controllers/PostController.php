@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(40);
+        $posts = Post::latest()->paginate(40);
         return view('posts.index', ['posts'=>$posts]);
     }
 
@@ -85,13 +85,32 @@ class PostController extends Controller
         }
         $comments_data = array();
         foreach ($comments_slice as $comment) {
+            $created_at = $comment->created_at;
+            if (now()->subWeeks(1)->greaterThan($created_at)) {
+                $created_at = 'created at ' . $created_at->format('Y-m-d H:m:s');
+            } else {
+                $created_at = 'created ' .
+                    now()->longAbsoluteDiffForHumans($created_at) . ' ago';
+            }
+            $updated_at = 'not updated';
+            if ($comment->created_at != $comment->updated_at) {
+                $updated_at = $comment->updated_at;
+                if (now()->subWeeks(1)->greaterThan($updated_at)) {
+                    $updated_at = 'updated at ' . $updated_at->format('Y-m-d H:m:s');
+                } else {
+                    $updated_at = 'updated ' .
+                        now()->longAbsoluteDiffForHumans($updated_at) . ' ago';
+                }
+            }
             $comment_descr = array(
                 'id' => $comment->id,
                 'user_id' => $comment->user->id,
                 'message' => $comment->message,
                 'accountRoute' => route('accounts.show', ['account' => $comment->user->account]),
                 'accountDisplayName' => $comment->user->account->display_name,
-                'destroyRoute' => route('comments.destroy', ['comment' => $comment])
+                'destroyRoute' => route('comments.destroy', ['comment' => $comment]),
+                'created_at' => $created_at,
+                'updated_at' => $updated_at
             );
             array_push($comments_data, $comment_descr);
         }

@@ -19,7 +19,7 @@ use App\Models\User;
 |
 */
 
-Route::middleware('throttle:10')->group(function() {
+Route::middleware('throttle:30')->group(function() {
     Route::get('/', function () {
         return view('components.home');
     })->name('home');

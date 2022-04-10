@@ -24,6 +24,7 @@ class PostsTableSeeder extends Seeder
         $first->public = true; // public post - visible to every user
         $first->user_id = 1;
         $first->save();
+        sleep(2); // to ensure that this is the oldest post
 
         $second = new Post();
         $second->title = "Little Red Riding Hood - Part 1";
@@ -75,6 +76,7 @@ class PostsTableSeeder extends Seeder
         $second->public = false; // private post - only visible to friends
         $second->user_id = 2;
         $second->save();
+        sleep(2); // to ensure that this is the second oldest post
 
         $third = new Post();
         $third->title = "Little Red Riding Hood - Part 2";
@@ -120,6 +122,7 @@ class PostsTableSeeder extends Seeder
         $third->public = false; // private post - only visible to friends
         $third->user_id = 2;
         $third->save();
+        sleep(2); // to ensure that this is the second oldest post
 
         Post::factory()->count(80)->create();
     }
