@@ -40,10 +40,10 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|max:60',
+            'title' => 'required|string|max:60',
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg,webp|max:2048|dimensions:max_width=2000,max_height=2000',
             'public' => 'required|boolean',
-            'message' => 'required|max:5000'
+            'message' => 'required|string|max:5000'
         ]);
         $post = new Post();
         $post->user_id = $request->user()->id;

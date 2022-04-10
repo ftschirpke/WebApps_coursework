@@ -37,9 +37,9 @@ class CommentController extends Controller
      */
     public function apiStore(Request $request) {
         $validatedData = $request->validate([
-            'message' => 'required|max:1000',
-            'post_id' => 'exists:App\Models\Post,id',
-            'user_id' => 'exists:App\Models\User,id'
+            'message' => 'required|string|max:1000',
+            'post_id' => 'required|numeric|exists:App\Models\Post,id',
+            'user_id' => 'required|numeric|exists:App\Models\User,id'
         ]);
         $comment = new Comment();
         $comment->user_id = $validatedData['user_id'];
