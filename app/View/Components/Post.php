@@ -11,9 +11,10 @@ class Post extends Component
      *
      * @return void
      */
-    public function __construct($post)
+    public function __construct($post, $report = false)
     {
         $this->post = $post;
+        $this->report = filter_var($report, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
@@ -23,6 +24,6 @@ class Post extends Component
      */
     public function render()
     {
-        return view('components.post', ['post'=>$this->post]);
+        return view('components.post', ['post'=>$this->post, 'report'=>$this->report]);
     }
 }

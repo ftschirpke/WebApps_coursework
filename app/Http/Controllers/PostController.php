@@ -82,9 +82,12 @@ class PostController extends Controller
         $comments_data = array();
         foreach ($comments_slice as $comment) {
             $comment_descr = array(
+                'id' => $comment->id,
+                'user_id' => $comment->user->id,
                 'message' => $comment->message,
                 'accountRoute' => route('accounts.show', ['account' => $comment->user->account]),
-                'accountDisplayName' => $comment->user->account->display_name
+                'accountDisplayName' => $comment->user->account->display_name,
+                'destroyRoute' => route('comments.destroy', ['comment' => $comment])
             );
             array_push($comments_data, $comment_descr);
         }

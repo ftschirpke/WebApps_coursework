@@ -36,7 +36,27 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $validatedData = $request->validate([
+            // 'category' => 'required|string|max:30|in_array:App\Models\Report::$categories',
+            'category' => 'required|string|max:30',
+            'report_message' => 'required|string|max:1000',
+            'reportable_type' => 'required|string',
+            // 'reportable_type' => 'required|string|in:[Post, Comment]',
+            // 'reportable_id' => 'required|numeric|exists:App\Models\\'
+            // . $request['reportable_type'] . ',id'
+            'reportable_id' => 'required|numeric'
+        ]);
+        $report = new Report();
+        $report->user_id = $request->user()->id;
+        $report->category = $validatedData['category'];
+        $report->message = $validatedData['report_message'];
+        $report->reportable_id = $validatedData['reportable_id'];
+        $report->reportable_type = 'App\Models\\' . $validatedData['reportable_type'];
+        $report->save();
+        return redirect()->back()
+            ->with('flash_msg', 'Your report of this ' . $validatedData['reportable_type']
+                . ' was submitted successfully.');
     }
 
     /**

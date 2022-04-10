@@ -12,7 +12,7 @@
     </div>
 
     @if ($report->reportable_type == 'App\Models\Post')
-    <x-post :post='$report->reportable'></x-post>
+    <x-post :post='$report->reportable' report='true'></x-post>
     @elseif ($report->reportable_type == 'App\Models\Comment')
     <x-comment :comment='$report->reportable'></x-comment>
     @endif

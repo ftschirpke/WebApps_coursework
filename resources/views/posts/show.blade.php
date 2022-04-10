@@ -74,6 +74,110 @@
                         <span class="border border-4 bg-secondary border-dark rounded text-light">
                             <div class="col">
                                 <div class="container-fluid p-4">
+                                <div class="row mb-2 mt-1">
+                                    <div class="col">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-warning me-2" data-bs-toggle="modal"
+                                            data-bs-target="#reportCommentModal">
+                                            Report
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="reportCommentModal" tabindex="-1" 
+                                            aria-labelledby="reportCommentModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content bg-dark">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="reportCommentModalLabel"
+                                                            >Report Comment</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Cancel"></button>
+                                                    </div>
+                                                    <form method="POST"
+                                                        action="{{ route('reports.store') }}">
+                                                        @csrf
+                                                    <div class="modal-body">
+                                                        <div class="form-group p-2">
+                                                            @foreach (App\Models\Report::$categories as $category)
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" name="category" 
+                                                                    type="radio" id="yes" 
+                                                                    value="{{ $category }}" {{ old('category') == $category ? 'checked' : '' }} required/>
+                                                                <label class="form-check-label" for="category">{{ $category }}</label>
+                                                            </div>
+                                                            @endforeach
+                                                            @error('$category')
+                                                            <div class="alert alert-danger mt-2 p-2">
+                                                                {{ $message }}
+                                                            </div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="form-group p-2">
+                                                            <textarea class="form-control textarea-autosize" id="report_message" 
+                                                                rows="5" name="report_message"
+                                                            placeholder="Add a short description" aria-describedby="report_message_help" 
+                                                                required autofocus
+                                                            />{{ old('report_message') }}</textarea>
+                                                            <small class="form-text text-light" id="message_help">
+                                                                Your report message must be no more than 1000 characters long.
+                                                            </small>
+                                                            @error('report_message')
+                                                            <div class="alert alert-danger mt-2 p-2">
+                                                                {{ $message }}
+                                                            </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="hidden" name="reportable_id" :value="comment.id"/>
+                                                        <input type="hidden" name="reportable_type" value="Comment"/>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-warning">Report</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Button trigger modal -->
+                                        <button v-if="comment.user_id == authUserId || authUserIsAdmin"
+                                            type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                            :data-bs-target="'#deleteCommentModal' + comment.id">
+                                            Delete Comment
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div v-if="comment.user_id == authUserId || authUserIsAdmin"
+                                            class="modal fade" :id="'deleteCommentModal' + comment.id" tabindex="-1"
+                                            :aria-labelledby="'deleteCommentModalLabel' + comment.id" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content bg-dark">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" :id="'deleteCommentModalLabel' + comment.id">Delete Comment</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure, you want to delete this Comment?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                        <form method="POST" v-bind:action="comment.destroyRoute">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-warning" type="submit">Yes</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col text-end">
+                                        Created on {{ $post->created_at }}
+                                        @if ( $post->updated_at != $post->created_at )
+                                        and Updated on {{ $post->updated_at }}
+                                        @endif
+                                    </div>
+                                </div>
                                     <h6>by <a class="text-warning" :href="comment.accountRoute">
                                         @{{ comment.accountDisplayName }}
                                     </a></h6>
@@ -99,6 +203,7 @@
     <script>
         const bladeParams = {
             userId: "{{ Auth::id() }}",
+            isAdmin: "{{ Auth::id() != null && Auth::user()->is_admin }}",
             postId: "{{ $post->id }}",
             postRoute: "{{ route('api.posts.show', ['post'=>$post, 'offset' => 'offset_value']) }}",
             commentsStoreRoute: "{{ route('api.comments.store') }}"

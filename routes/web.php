@@ -45,11 +45,17 @@ Route::middleware('throttle:10')->group(function() {
         ->name('posts.show');
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])
         ->name('posts.destroy')->middleware(['auth', 'can:delete,post']);
+
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
+        ->name('comments.destroy')->middleware(['auth', 'can:delete,comment']);
     
     Route::get('/reports', [ReportController::class, 'index'])
         ->name('reports.index')->middleware(['auth', 'can:viewAny,App\Models\Report']);
+    Route::post('/reports', [ReportController::class, 'store'])
+        ->name('reports.store')->middleware('auth');
     Route::get('/reports/{report}', [ReportController::class, 'show'])
         ->name('reports.show')->middleware(['auth', 'can:view,report']);
+
     
     Route::get('/cod', [AccountController::class, 'cod'])
         ->name('cod');

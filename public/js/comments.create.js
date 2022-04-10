@@ -4,6 +4,8 @@ const App = {
     },
     data() {
         return {
+            authUserId: bladeParams.userId,
+            authUserIsAdmin: bladeParams.isAdmin,
             comments: []
         }
     },
