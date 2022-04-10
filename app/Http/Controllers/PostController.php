@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -71,6 +72,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        if (!$post->users_viewed_by->contains(Auth::user())) {
+            $post->users_viewed_by()->attach(Auth::id());
+        }
         return view('posts.show', ['post'=>$post]);
     }
 
