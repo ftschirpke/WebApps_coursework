@@ -19,7 +19,7 @@ class CreateReportsTable extends Migration
             $table->string('category', 30);
             $table->string('message', 1000);
             $table->unsignedBigInteger('reportable_id');
-            $table->string('reportable_type', 10);
+            $table->string('reportable_type', 30);
             $table->timestamps();
         });
     }

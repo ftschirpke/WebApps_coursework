@@ -3,13 +3,17 @@
         <div class="container-fluid p-4">
             <h1>{{ $post->title ?? 'Post without title' }}</h1>
             @can('delete', $post)
-                <x-delete-button type="Post">
-                    <form method="POST" action="{{ route('posts.destroy', $post) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-warning" type="submit">Yes</button>
-                    </form>
-                </x-delete-button>
+            <div class="row mb-2 mt-1">
+                <div class="col">                    
+                    <x-delete-button type="Post">
+                        <form method="POST" action="{{ route('posts.destroy', $post) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-warning" type="submit">Yes</button>
+                        </form>
+                    </x-delete-button>
+                </div>
+            </div>
             @endcan
             <div class="row mb-2">
                 <div class="col-5">
@@ -20,9 +24,9 @@
                     </h5>
                 </div>
                 <div class="col-7 text-end">
-                    Created on {{ $post->created_at; }}
+                    Created on {{ $post->created_at }}
                     @if ( $post->updated_at != $post->created_at )
-                    and Updated on {{ $post->updated_at; }}
+                    and Updated on {{ $post->updated_at }}
                     @endif
                 </div>
             </div>

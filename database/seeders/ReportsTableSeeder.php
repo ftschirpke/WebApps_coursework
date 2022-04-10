@@ -19,7 +19,7 @@ class ReportsTableSeeder extends Seeder
         $post_report->category = 'other';
         $post_report->message = 'Sorry, just wanted to report something.';
         $post_report->reportable_id = 1;
-        $post_report->reportable_type = "Post";
+        $post_report->reportable_type = "App\Models\Post";
         $post_report->save();
 
         $comment_report = new Report();
@@ -27,7 +27,7 @@ class ReportsTableSeeder extends Seeder
         $comment_report->category = 'other';
         $comment_report->message = 'I reported the first ever comment. YEY';
         $comment_report->reportable_id = 1;
-        $comment_report->reportable_type = "Comment";
+        $comment_report->reportable_type = "App\Models\Comment";
         $comment_report->save();
     }
 }
