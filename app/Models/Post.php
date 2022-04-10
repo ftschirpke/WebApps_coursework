@@ -20,4 +20,8 @@ class Post extends Model
     public function users_viewed_by() {
         return $this->belongsToMany(User::class, 'unique_post_views');
     }
+
+    public function reports() {
+        return $this->morphMany(Report::class, 'reportable');
+    }
 }

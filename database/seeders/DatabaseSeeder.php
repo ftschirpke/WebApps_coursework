@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AccountsTableSeeder::class);
         $this->call(PostsTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
+        $this->call(ReportsTableSeeder::class);
         $this->call(UniquePostViewsTableSeeder::class);
     }
 }
