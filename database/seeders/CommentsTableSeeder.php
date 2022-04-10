@@ -28,14 +28,14 @@ class CommentsTableSeeder extends Seeder
 
         $comment = new Comment();
         $comment->message = "Little Red Riding Hood is boring...";
-        $comment->user_id = 1;
+        $comment->user_id = 3;
         $comment->post_id = 2;
         $comment->save();
 
         // seeding a comment on a user's own post
         $comment = new Comment();
         $comment->message = "I like Little Red Riding Hood. \u{1F600}"; // emojis work
-        $comment->user_id = 2;
+        $comment->user_id = 1;
         $comment->post_id = 2;
         $comment->save();
 

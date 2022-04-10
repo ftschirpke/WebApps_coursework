@@ -17,7 +17,7 @@ class Post extends Model
         return $this->hasMany(Comment::class)->latest();
     }
 
-    public function viewed_by(){
+    public function users_viewed_by() {
         return $this->belongsToMany(User::class, 'unique_post_views');
     }
 }

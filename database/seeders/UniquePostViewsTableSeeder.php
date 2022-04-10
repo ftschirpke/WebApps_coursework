@@ -19,7 +19,7 @@ class UniquePostViewsTableSeeder extends Seeder
     public function run()
     {
         $first_post = Post::find(1);
-        $first_post->viewed_by()->attach(
+        $first_post->users_viewed_by()->attach(
             User::all()->except($first_post->user->id)
                 ->pluck('id')->toArray()
         );
@@ -33,7 +33,7 @@ class UniquePostViewsTableSeeder extends Seeder
         foreach ($posts_except_first as $post) {
             // all the other posts were viewed by a random amount of people
             // but the creator itself is still excluded
-            $post->viewed_by()->attach(
+            $post->users_viewed_by()->attach(
                 $users->except($post->user->id)->random(rand(0, $user_count-1))
                     ->pluck('id')->toArray()
             );
