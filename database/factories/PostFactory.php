@@ -21,7 +21,7 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->realText(rand(10, 60)),
             'message' => $this->faker->realText(rand(20, 5000)),
-            'image' => $this->faker->optional(0.3)->imageUrl(),
+            'image_name' => $this->faker->optional(0.3)->imageUrl(),
             // images are optional - 30% of the posts will have images
             'public' => $this->faker->boolean($chanceOfGettingTrue=70),
             // not all posts are public - 70% of the posts will be public

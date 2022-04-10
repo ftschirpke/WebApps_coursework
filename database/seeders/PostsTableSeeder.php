@@ -19,7 +19,7 @@ class PostsTableSeeder extends Seeder
         $first = new Post();
         $first->title = "Welcome!";
         $first->message = "Welcome to my Web App. I hope you like it.";
-        $first->image = "https://via.placeholder.com/150";
+        $first->image_name = "https://via.placeholder.com/150";
         // optionally posts can have an image
         $first->public = true; // public post - visible to every user
         $first->user_id = 1;

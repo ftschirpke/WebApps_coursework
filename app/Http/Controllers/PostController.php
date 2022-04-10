@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -39,17 +41,24 @@ class PostController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|max:60',
-            'image' => 'nullable|image',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg,webp|max:2048|dimensions:max_width=2000,max_height=2000',
             'public' => 'required|boolean',
             'message' => 'required|max:5000'
         ]);
         $post = new Post();
         $post->user_id = $request->user()->id;
         $post->title = $validatedData['title'];
-        $post->image = $validatedData['image'];
+        
+        if ($request->hasFile('image')) {
+            $imageName = time() . "PostImage." . $request->image->extension(); 
+            $request->image->storeAs('public/post_images', $imageName);
+            $post->image_name = $imageName;
+        }
+        
         $post->public = $validatedData['public'];
         $post->message = $validatedData['message'];
         $post->save();
+
         return redirect()->route('posts.show', $post)
             ->with('flash_msg', 'Post was created');
     }

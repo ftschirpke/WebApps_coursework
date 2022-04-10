@@ -10,15 +10,15 @@
         <div class="col-md-auto">
             <div class="container-fluid p-4">
                 <h1>Create a Post</h1>
-                <form method="POST" action="{{ route('posts.store') }}">
+                <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group p-2">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" name="public" type="radio" id="yes" value="1" @checked(old('public') == '1') required/>
+                            <input class="form-check-input" name="public" type="radio" id="yes" value="1" {{ old('public') ? 'checked' : '' }} required/>
                             <label class="form-check-label" for="public">Public (visible to everyone)</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" name="public" type="radio" id="no" value="0" @checked(old('public', '0') == '0') required>
+                            <input class="form-check-input" name="public" type="radio" id="no" value="0" {{ old('public') ? '' : 'checked' }} required>
                             <label class="form-check-label" for="private">Private (visible to friends only)</label>
                         </div>
                         @error('public')

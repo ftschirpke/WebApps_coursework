@@ -28,8 +28,12 @@
             </div>
                 
             <div class="clearfix">
-                @if (!is_null($post->image))
-                    <img src="{{ asset($post->image) }}" class="img-fluid pt-1 pe-3 pb-3 float-sm-start"/>
+                @if (!is_null($post->image_name))
+                    @if (str_starts_with($post->image_name, 'http'))
+                    <img src="{{ asset($post->image_name) }}" class="img-fluid pt-1 pe-3 pb-3 float-sm-start"/>
+                    @else
+                    <img src="{{ asset('storage/post_images/' . $post->image_name) }}" class="img-fluid pt-1 pe-3 pb-3 float-sm-start"/>
+                    @endif
                 @endif
                 <p class="pull-left">{!! nl2br(e($post->message)) !!}</p>
                 <!-- this converts line breaks to br-tags, such that

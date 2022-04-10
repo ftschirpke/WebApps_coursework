@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 60);
             $table->string('message', 5000);
-            $table->binary('image')->nullable(); // images are optional
+            $table->string('image_name')->nullable(); // images are optional
             // these will be real images later, for now
             // they are just links to images on the web
             $table->boolean('public');
