@@ -7,16 +7,6 @@ use App\Models\Account;
 
 class AccountController extends Controller
 {
-    public function cod() {
-        $cod_api = app()->make('CoD');
-        return $cod_api->playerInfo("me");
-    }
-
-    public function lol() {
-        $lol_api = app()->make('LoL');
-        return $lol_api->playerInfo("Masria");
-    }
-
     /**
      * Display a listing of the resource.
      *

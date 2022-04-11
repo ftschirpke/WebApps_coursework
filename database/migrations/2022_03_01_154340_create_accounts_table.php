@@ -26,6 +26,7 @@ return new class extends Migration
             $table->binary('icon')->nullable(); // icons are optional
             // these will be real images later, for now
             // they are just links to images on the web
+            $table->string('lol_name', 50)->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')

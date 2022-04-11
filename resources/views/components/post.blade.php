@@ -30,7 +30,12 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col text-top-start">
+                @if ($post->user->account->lol_name)
+                <div class="col-auto">
+                    ({{ $post->user->account->lolInfo() }})
+                </div>
+                @endif
+                <div class="col text-end">
                     viewed by {{ $post->users_viewed_by->count() }} users
                 </div>
             </div>

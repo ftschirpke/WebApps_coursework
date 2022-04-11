@@ -99,7 +99,7 @@ class LeagueOfLegends
             'soloq' => $soloq_info,
             'flexq' => $flexq_info
         ];
-        dd($info);
+        return $info;
     }
 
     public function shortPlayerInfo($player_name, $region = 'EUW') {
@@ -123,12 +123,6 @@ class LeagueOfLegends
             'fav_champion_name' => $fav_champion_name,
             'soloq' => $soloq_rank,
         ];
-        dd($info);
-    }
-
-    public function testing() {
-        $url = 'https://euw1/lol/summoner/v4/summoners/by-name/Masria?api_key=' . $this->apiKey;
-        $response = Http::get($url);
-        dd($response->body());
+        return $info;
     }
 }
