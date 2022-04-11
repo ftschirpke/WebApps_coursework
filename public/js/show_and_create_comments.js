@@ -6,6 +6,7 @@ const ShowAndCreateComments = {
         return {
             authUserId: bladeParams.userId,
             authUserIsAdmin: bladeParams.isAdmin,
+            editRoute: bladeParams.commentsEditRoute,
             comments: []
         }
     },

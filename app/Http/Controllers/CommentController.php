@@ -87,7 +87,7 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        //
+        return view('comments.edit', ['comment' => $comment]);
     }
 
     /**
@@ -99,7 +99,14 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        $validatedData = $request->validate([
+            'message' => 'required|string|max:1000'
+        ]);
+        $comment->message = $validatedData['message'];
+        $comment->save();
+
+        return redirect()->route('posts.show', $comment->post)
+            ->with('flash_msg', 'Comment was updated');
     }
 
     /**

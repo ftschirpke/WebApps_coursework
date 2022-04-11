@@ -101,7 +101,12 @@
                                                 Report
                                             </button>
                                         </div>
-                                        <div v-if="comment.user_id == authUserId || authUserIsAdmin" class="col text-end">
+                                        <div v-if="comment.user_id == authUserId" class="col-auto p-1 text-end">
+                                            <a :href="comment.editRoute" class="btn btn-warning">
+                                                Edit Comment
+                                            </a>
+                                        </div>
+                                        <div v-if="comment.user_id == authUserId || authUserIsAdmin" class="col-auto p-1 text-end">
                                             <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                                 :data-bs-target="'#deleteCommentModal' + comment.id">

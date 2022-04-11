@@ -49,10 +49,14 @@ Route::middleware('throttle:30')->group(function() {
         ->name('posts.update')->middleware(['auth', 'can:update,post']);
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])
         ->name('posts.destroy')->middleware(['auth', 'can:delete,post']);
-
+        
+    Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])
+        ->name('comments.edit')->middleware(['auth', 'can:update,comment']);
+    Route::put('/comments/{comment}/update', [CommentController::class, 'update'])
+        ->name('comments.update')->middleware(['auth', 'can:update,comment']);
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
         ->name('comments.destroy')->middleware(['auth', 'can:delete,comment']);
-    
+        
     Route::get('/reports', [ReportController::class, 'index'])
         ->name('reports.index')->middleware(['auth', 'can:viewAny,App\Models\Report']);
     Route::post('/reports', [ReportController::class, 'store'])

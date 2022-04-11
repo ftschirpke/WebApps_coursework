@@ -113,6 +113,7 @@ class PostController extends Controller
                 'accountRoute' => route('accounts.show', ['account' => $comment->user->account]),
                 'accountDisplayName' => $comment->user->account->display_name,
                 'destroyRoute' => route('comments.destroy', ['comment' => $comment]),
+                'editRoute' => route('comments.edit', ['comment' => $comment]),
                 'created_at' => $created_at,
                 'updated_at' => $updated_at
             );

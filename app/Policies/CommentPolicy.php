@@ -54,7 +54,9 @@ class CommentPolicy
      */
     public function update(User $user, Comment $comment)
     {
-        //
+        return ($user->id === $comment->user_id)
+            ? Response::allow()
+            : Response::deny("Only the post owner can update a post.");
     }
 
     /**
