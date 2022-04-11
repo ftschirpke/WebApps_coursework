@@ -37,12 +37,16 @@ Route::middleware('throttle:30')->group(function() {
     
     Route::get('/posts', [PostController::class, 'index'])
         ->name('posts.index');
+    Route::get('/posts/friends', [PostController::class, 'indexFriends'])
+        ->name('posts.indexFriends')->middleware('auth');
+    Route::get('/posts/my', [PostController::class, 'indexMy'])
+        ->name('posts.indexMy')->middleware('auth');
     Route::get('/posts/create', [PostController::class, 'create'])
         ->name('posts.create')->middleware('auth');
     Route::post('/posts', [PostController::class, 'store'])
         ->name('posts.store')->middleware('auth');
     Route::get('/posts/{post}', [PostController::class, 'show'])
-        ->name('posts.show');
+        ->name('posts.show')->middleware('can:view,post');
     Route::get('/posts/{post}/edit', [PostController::class, 'edit'])
         ->name('posts.edit')->middleware(['auth', 'can:update,post']);
     Route::put('/posts/{post}/update', [PostController::class, 'update'])
@@ -63,12 +67,6 @@ Route::middleware('throttle:30')->group(function() {
         ->name('reports.store')->middleware('auth');
     Route::get('/reports/{report}', [ReportController::class, 'show'])
         ->name('reports.show')->middleware(['auth', 'can:view,report']);
-
-    
-    Route::get('/cod', [AccountController::class, 'cod'])
-        ->name('cod');
-    Route::get('/lol', [AccountController::class, 'lol'])
-        ->name('lol');
 });
 
 require __DIR__.'/auth.php';

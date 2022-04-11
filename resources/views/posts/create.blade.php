@@ -15,7 +15,7 @@
                     <div class="form-group mt-2">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" name="public" type="radio" id="yes" value="1" {{ old('public') ? 'checked' : '' }} required/>
-                            <label class="form-check-label" for="public">Public (visible to everyone)</label>
+                            <label class="form-check-label" for="public">Public (visible to everyone even guests)</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" name="public" type="radio" id="no" value="0" {{ old('public') ? '' : 'checked' }} required>

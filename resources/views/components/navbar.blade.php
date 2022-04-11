@@ -14,14 +14,27 @@
                         <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                     @endif
                 </li>
-                <li class="nav-item">
-                    @if ($active == 'posts.index')
-                        <a class="nav-link active" aria-current="page" href="">Posts</a>
-                    @else
-                        <a class="nav-link" href="{{ route('posts.index') }}">Posts</a>
-                    @endif
-                </li>
+                @guest
+                    <li class="nav-item">
+                        @if ($active == 'posts.index')
+                            <a class="nav-link active" aria-current="page" href="">Posts</a>
+                        @else
+                            <a class="nav-link" href="{{ route('posts.index') }}">Posts</a>
+                        @endif
+                    </li>
+                @endguest
                 @auth
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{{ route('posts.index') }}" id="navbarDropdown" 
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Posts
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ route('posts.index') }}">Public posts</a></li>
+                            <li><a class="dropdown-item" href="{{ route('posts.indexFriends') }}">My friend's posts</a></li>
+                            <li><a class="dropdown-item" href="{{ route('posts.indexMy') }}">My posts</a></li>
+                        </ul>
+                    </li>
                 @if (Auth::user()->is_admin)
                 <li class="nav-item">
                     @if ($active == 'reports.index')

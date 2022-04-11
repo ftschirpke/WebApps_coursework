@@ -18,6 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'name',
         'email',
         'password',
@@ -59,7 +60,27 @@ class User extends Authenticatable
         return $this->hasOne(Account::class);
     }
 
-    public function viewed_posts(){
+    public function posts_viewed() {
         return $this->belongsToMany(Post::class, 'unique_post_views');
+    }
+
+    public function users_friendship_requests_sent_to() {
+        return $this->belongsToMany(
+            User::class, 'friendship_requests',
+            'sender_user_id', 'receiver_user_id'
+        );
+    }
+
+    public function users_friendship_requests_received_from() {
+        return $this->belongsToMany(
+            User::class, 'friendship_requests',
+            'receiver_user_id', 'sender_user_id'
+        );
+    }
+
+    public function friends() {
+        $to = $this->users_friendship_requests_sent_to;
+        $from = $this->users_friendship_requests_received_from;
+        return $to->intersect($from);
     }
 }

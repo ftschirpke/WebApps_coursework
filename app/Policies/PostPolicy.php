@@ -31,10 +31,16 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        if ($post->public) {
-            return true;
+        if ($post->public || $user->is_admin) {
+            return Response::allow();
         } else {
-            return false;
+            if ($user->friends()->contains($post->user)) {
+                return Response::allow();
+            } else {
+                return Response::deny(
+                    "Only friends of the post's owner can view a private post."
+                );
+            }
         }
     }
 
