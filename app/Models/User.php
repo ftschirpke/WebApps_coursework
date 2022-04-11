@@ -64,23 +64,33 @@ class User extends Authenticatable
         return $this->belongsToMany(Post::class, 'unique_post_views');
     }
 
-    public function users_friendship_requests_sent_to() {
+    public function users_friend_requests_sent_to() {
         return $this->belongsToMany(
-            User::class, 'friendship_requests',
+            User::class, 'friend_requests',
             'sender_user_id', 'receiver_user_id'
         );
     }
 
-    public function users_friendship_requests_received_from() {
+    public function users_friend_requests_received_from() {
         return $this->belongsToMany(
-            User::class, 'friendship_requests',
+            User::class, 'friend_requests',
             'receiver_user_id', 'sender_user_id'
         );
     }
 
     public function friends() {
-        $to = $this->users_friendship_requests_sent_to;
-        $from = $this->users_friendship_requests_received_from;
+        $to = $this->users_friend_requests_sent_to;
+        $from = $this->users_friend_requests_received_from;
         return $to->intersect($from);
+    }
+
+    public function unrelated_users() {
+        return User::orderBy(Account::select('display_name')
+                ->whereColumn('user_id', 'users.id')
+                ->orderBy('display_name')
+            )->get()
+            ->diff($this->users_friend_requests_sent_to)
+            ->diff($this->users_friend_requests_received_from)
+            ->diff([$this]);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
@@ -67,6 +68,15 @@ Route::middleware('throttle:30')->group(function() {
         ->name('reports.store')->middleware('auth');
     Route::get('/reports/{report}', [ReportController::class, 'show'])
         ->name('reports.show')->middleware(['auth', 'can:view,report']);
+
+    Route::middleware('auth')->group(function() {
+        Route::get('/friends', [FriendsController::class, 'index'])
+            ->name('friends.index');
+        Route::post('/friends', [FriendsController::class, 'store'])
+            ->name('friends.store');
+        Route::delete('/friends/{user}', [FriendsController::class, 'destroy'])
+            ->name('friends.destroy');
+    });
 });
 
 require __DIR__.'/auth.php';

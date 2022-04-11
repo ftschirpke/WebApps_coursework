@@ -35,15 +35,22 @@
                             <li><a class="dropdown-item" href="{{ route('posts.indexMy') }}">My posts</a></li>
                         </ul>
                     </li>
-                @if (Auth::user()->is_admin)
-                <li class="nav-item">
-                    @if ($active == 'reports.index')
-                    <a class="nav-link active" aria-current="page" href="">Reports</a>
-                    @else
-                    <a class="nav-link" href="{{ route('reports.index') }}">Reports</a>
+                    <li class="nav-item">
+                        @if ($active == 'friends.index')
+                        <a class="nav-link active" aria-current="page" href="">Friends</a>
+                        @else
+                        <a class="nav-link" href="{{ route('friends.index') }}">Friends</a>
+                        @endif
+                    </li>
+                    @if (Auth::user()->is_admin)
+                        <li class="nav-item">
+                            @if ($active == 'reports.index')
+                            <a class="nav-link active" aria-current="page" href="">Reports</a>
+                            @else
+                            <a class="nav-link" href="{{ route('reports.index') }}">Reports</a>
+                            @endif
+                        </li>
                     @endif
-                </li>
-                @endif
                 @endauth
             </ul>
             <ul class="navbar-nav ms-auto">

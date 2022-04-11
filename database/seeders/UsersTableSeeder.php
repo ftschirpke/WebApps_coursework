@@ -50,8 +50,8 @@ class UsersTableSeeder extends Seeder
         $test2->setRememberToken("bbbbcdbbbb");
         $test2->save();
 
-        $test1->users_friendship_requests_sent_to()->attach([1, 3]);
-        $test2->users_friendship_requests_sent_to()->attach([1, 2]);
+        $test1->users_friend_requests_sent_to()->attach([1, 3]);
+        $test2->users_friend_requests_sent_to()->attach([1, 2]);
         
         User::factory()->count(20)->hasAccount()->create();
         // calling hasAccount() on all the created users

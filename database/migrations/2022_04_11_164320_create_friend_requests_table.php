@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFriendshipRequestsTable extends Migration
+class CreateFriendRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFriendshipRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('friendship_requests', function (Blueprint $table) {
+        Schema::create('friend_requests', function (Blueprint $table) {
             $table->primary(['receiver_user_id', 'sender_user_id']);
             $table->unsignedBigInteger('receiver_user_id');
             $table->unsignedBigInteger('sender_user_id');
@@ -33,6 +33,6 @@ class CreateFriendshipRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('friendship_requests');
+        Schema::dropIfExists('friend_requests');
     }
 }
