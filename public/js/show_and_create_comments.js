@@ -1,4 +1,4 @@
-const App = {
+const ShowAndCreateComments = {
     created() {
         allCommentsReceived: false
     },
@@ -60,4 +60,4 @@ const App = {
         this.scroll();
     }
 };
-Vue.createApp(App).mount('#commentManagement');
+Vue.createApp(ShowAndCreateComments).mount('#commentManagement');

@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    private function storePostImage($image) {
+        $imageName = time() . "PostImage." . $image->extension(); 
+        $image->storeAs('public/post_images', $imageName);
+        return $imageName;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -51,9 +57,7 @@ class PostController extends Controller
         $post->title = $validatedData['title'];
         
         if ($request->hasFile('image')) {
-            $imageName = time() . "PostImage." . $request->image->extension(); 
-            $request->image->storeAs('public/post_images', $imageName);
-            $post->image_name = $imageName;
+            $post->image_name = $this->storePostImage($validatedData['image']);
         }
         
         $post->public = $validatedData['public'];
@@ -137,7 +141,34 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        dd($post);
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:60',
+            'image_action' => 'required|string|max:7',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg,webp|max:2048|dimensions:max_width=2000,max_height=2000',
+            'message' => 'required|string|max:5000'
+        ]);
+        if ($validatedData['image_action'] == 'keep') {
+            $post->title = $validatedData['title'];
+            $post->message = $validatedData['message'];
+        } else if ($validatedData['image_action'] == 'replace') {
+            if (!str_starts_with($post->image_name, 'http')) {
+                Storage::delete(asset('storage/post_images/' . $post->image_name));
+            }
+            $post->title = $validatedData['title'];
+            $post->image_name = $this->storePostImage($validatedData['image']);
+            $post->message = $validatedData['message'];
+        } else if ($validatedData['image_action'] == 'delete') {
+            if (!str_starts_with($post->image_name, 'http')) {
+                Storage::delete(asset('storage/post_images/' . $post->image_name));
+            }
+            $post->title = $validatedData['title'];
+            $post->image_name = null;
+            $post->message = $validatedData['message'];
+        }
+        $post->save();
+
+        return redirect()->route('posts.show', $post)
+            ->with('flash_msg', 'Post was updated');
     }
 
     /**

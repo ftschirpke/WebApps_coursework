@@ -210,6 +210,6 @@
             commentsStoreRoute: "{{ route('api.comments.store') }}"
         };
         </script>
-    <script type="text/javascript" src="{{ URL::asset('js/comments.create.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/show_and_create_comments.js') }}"></script>
     
 </x-app-layout>

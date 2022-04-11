@@ -23,7 +23,6 @@
                         @if (now()->subWeeks(1)->greaterThan($post->updated_at))
                             at {{ $post->updated_at }}
                         @else
-                            updated
                             {{ now()->longAbsoluteDiffForHumans($post->updated_at) }}
                             ago
                         @endif
@@ -119,7 +118,7 @@
                 <div class="col-auto p-1 text-end">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                        Delete {{ $type ?? "Object" }}
+                        Delete Post
                     </button>
 
                     <!-- Modal -->
@@ -127,11 +126,11 @@
                         <div class="modal-dialog">
                             <div class="modal-content bg-dark">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">Delete {{ $type ?? "Object" }}</h5>
+                                    <h5 class="modal-title" id="deleteModalLabel">Delete Post</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    Are you sure, you want to delete this {{ $type ?? "Object" }}?
+                                    Are you sure, you want to delete this Post?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
