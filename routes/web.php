@@ -43,6 +43,10 @@ Route::middleware('throttle:30')->group(function() {
         ->name('posts.store')->middleware('auth');
     Route::get('/posts/{post}', [PostController::class, 'show'])
         ->name('posts.show');
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])
+        ->name('posts.edit')->middleware(['auth', 'can:update,post']);
+    Route::put('/posts/{post}', [PostController::class, 'update'])
+        ->name('posts.update')->middleware(['auth', 'can:update,post']);
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])
         ->name('posts.destroy')->middleware(['auth', 'can:delete,post']);
 

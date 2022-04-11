@@ -16,9 +16,7 @@
                     <div class="col">
                         <div class="container-fluid p-4 text-center">
                             <h4>To see and create comments, log in:</h4>
-                            <form action="{{ route('login') }}">
-                                <button type="submit" class="btn btn-warning ms-2">Log in</button>
-                            </form>
+                            <a href="{{ route('login') }}" class="btn btn-warning ms-2">Log in</a>
                         </div>
                     </div>
                 </div>

@@ -11,12 +11,12 @@
                                 Other views
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <li><form action="{{ route('posts.create') }}">
-                                    <button type="submit" class="dropdown-item">All Post</button>
-                                </form></li>
-                                <li><form action="{{ route('posts.create') }}">
-                                    <button type="submit" class="dropdown-item">My Post</button>
-                                </form></li>
+                                <li>
+                                    <a href="{{ route('posts.create') }}" class="dropdown-item">Friends Posts</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('posts.create') }}" class="dropdown-item">My Posts</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -24,9 +24,7 @@
                         {{ $posts->links() }}
                     </div>
                     <div class="col-4 text-end">
-                        <form action="{{ route('posts.create') }}">
-                            <button type="submit" class="btn btn-warning">Create Post</button>
-                        </form>
+                        <a href="{{ route('posts.create') }}" class="btn btn-warning">Create Post</a>
                     </div>
                 </div>
                 <ul>
