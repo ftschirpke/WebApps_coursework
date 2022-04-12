@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReportController;
@@ -32,9 +33,8 @@ Route::middleware('throttle:30')->group(function() {
     Route::get('/account/{account}', [AccountController::class, 'show'])
         ->name('accounts.show');
     
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware('auth')->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])
+        ->name('dashboard')->middleware('auth');
     
     Route::get('/posts', [PostController::class, 'index'])
         ->name('posts.index');

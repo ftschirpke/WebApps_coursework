@@ -32,6 +32,10 @@
     --dark:      var(--gray-900);
 }
 
+a:hover {
+    color: var(--light);
+}
+
 /* colour of links */
 a {
     color: var(--warning);

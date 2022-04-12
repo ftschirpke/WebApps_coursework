@@ -61,21 +61,22 @@ class User extends Authenticatable
     }
 
     public function posts_viewed() {
-        return $this->belongsToMany(Post::class, 'unique_post_views');
+        return $this->belongsToMany(Post::class, 'unique_post_views')
+            ->withTimestamps();
     }
 
     public function users_friend_requests_sent_to() {
         return $this->belongsToMany(
             User::class, 'friend_requests',
             'sender_user_id', 'receiver_user_id'
-        );
+        )->withTimestamps();
     }
 
     public function users_friend_requests_received_from() {
         return $this->belongsToMany(
             User::class, 'friend_requests',
             'receiver_user_id', 'sender_user_id'
-        );
+        )->withTimestamps();
     }
 
     public function friends() {

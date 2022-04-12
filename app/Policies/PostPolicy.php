@@ -31,7 +31,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        if ($post->public || $user->is_admin) {
+        if ($post->public || $user->is_admin || $post->user_id == $user->id) {
             return Response::allow();
         } else {
             if ($user->friends()->contains($post->user)) {

@@ -95,7 +95,7 @@ class PostController extends Controller
     }
 
     public function apiShow(Post $post, $offset = 0) {
-        $comments_slice = collect($post->comments)->slice($offset, 5)->values();
+        $comments_slice = collect($post->comments)->slice($offset, 10)->values();
         if ($comments_slice->isEmpty()) {
             return false;
         }
