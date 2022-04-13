@@ -2,7 +2,7 @@
 <x-app-layout>
     <h1>Dashboard</h1>
 
-    <h5>What do you want to do next?</h5>
+    <h5>Welcome back {{ Auth::user()->account->display_name }}, what do you want to do next?</h5>
 
     <div class="row justify-content-start ms-2 mb-4">
         <div class="col-auto">
