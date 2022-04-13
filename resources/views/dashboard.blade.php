@@ -26,8 +26,23 @@
 
     <div class="p-2 ms-2">
         @if ($recent_activity)
+            @if (!empty($recent_activity['new_post_comments']))
+                <h5>Comments on your posts</h5>
+                @foreach ($recent_activity['new_post_comments'] as $entry)
+                    <div class="row ms-2">
+                        <div class="col">
+                            Your post 
+                            <a href="{{ route('posts.show', ['post' => $entry['post']]) }}"
+                            >{{ $entry['post']->title }}</a>
+                            was commented on {{ $entry['count'] }} additional times in the last 24 hours
+                            and has {{ $entry['post']->comments->count() }}
+                            total comments now.
+                        </div>
+                    </div>
+                @endforeach
+            @endif
             @if (!empty($recent_activity['new_post_views']))
-                <h5>New public posts</h5>
+                <h5>Views on your posts</h5>
                 @foreach ($recent_activity['new_post_views'] as $entry)
                     <div class="row ms-2">
                         <div class="col">

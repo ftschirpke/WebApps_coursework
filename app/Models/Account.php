@@ -13,11 +13,8 @@ class Account extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function cod() {
-        $cod_api = app()->make('CoD');
-        return $cod_api->playerInfo("me");
-    }
 
+    // getting Account Information from the League of Legends API
     public function lolInfo($long = false, $only = null) {
         $lol_api = app()->make('LoL');
         if ($only) {
