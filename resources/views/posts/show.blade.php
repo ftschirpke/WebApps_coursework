@@ -111,7 +111,7 @@
                                     <div class="row">
                                         <div class="col text-start">
                                             <!-- Button trigger report modal -->
-                                            <button type="button" class="btn btn-warning me-2" data-bs-toggle="modal"
+                                            <button v-if="authUserId != comment.user_id" type="button" class="btn btn-warning me-2" data-bs-toggle="modal"
                                                 data-bs-target="#reportCommentModal">
                                                 Report
                                             </button>
@@ -132,7 +132,7 @@
                                     </div>
 
                                     <!-- Report modal -->
-                                    <div class="modal fade" id="reportCommentModal" tabindex="-1" 
+                                    <div v-if="authUserId != comment.user_id" class="modal fade" id="reportCommentModal" tabindex="-1" 
                                         aria-labelledby="reportCommentModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content bg-dark">

@@ -44,13 +44,6 @@
                         <a class="text-warning" href="{{ route('posts.show', $post) }}">
                         {{ $post->title }}</a>
                         by {{ $post->user->account->display_name }}
-                        <!-- @if (now()->subWeeks(1)->greaterThan($post->created_at))
-                            created at {{ $post->created_at }}
-                        @else
-                            created
-                            {{ now()->longAbsoluteDiffForHumans($post->created_at) }}
-                            ago
-                        @endif -->
                     </li>
                     @endforeach
                 </ul>

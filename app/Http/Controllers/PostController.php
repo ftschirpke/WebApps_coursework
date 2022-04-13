@@ -24,19 +24,19 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->where('public', '=', true)->paginate(40);
+        $posts = Post::latest()->where('public', '=', true)->paginate(25);
         return view('posts.index', ['descr'=>'public', 'posts'=>$posts]);
     }
 
     public function indexFriends() {
         $posts_by_friends = Post::latest()
             ->whereIn('user_id', Auth::user()->friends()->pluck('id'))
-            ->paginate(40);
+            ->paginate(25);
         return view('posts.index', ['descr'=>'my friend\'s', 'posts'=>$posts_by_friends]);
     }
     
     public function indexMy() {
-        $my_posts = Auth::user()->posts()->latest()->paginate(40);
+        $my_posts = Auth::user()->posts()->latest()->paginate(25);
         return view('posts.index', ['descr'=>'my', 'posts'=>$my_posts]);
     }    
 
@@ -95,7 +95,7 @@ class PostController extends Controller
     }
 
     public function apiShow(Post $post, $offset = 0) {
-        $comments_slice = collect($post->comments)->slice($offset, 10)->values();
+        $comments_slice = collect($post->comments)->slice($offset, 5)->values();
         if ($comments_slice->isEmpty()) {
             return false;
         }

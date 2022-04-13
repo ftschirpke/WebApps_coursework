@@ -29,8 +29,13 @@ class PostPolicy
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Post $post)
+    public function view(?User $user, Post $post)
     {
+        if ($user == null && !$post->public) {
+            return Response::deny(
+                'Only friends of the post\'s owner can view a private post.'
+            );
+        }
         if ($post->public || $user->is_admin || $post->user_id == $user->id) {
             return Response::allow();
         } else {
@@ -38,7 +43,7 @@ class PostPolicy
                 return Response::allow();
             } else {
                 return Response::deny(
-                    "Only friends of the post's owner can view a private post."
+                    'Only friends of the post\'s owner can view a private post.'
                 );
             }
         }
@@ -66,7 +71,7 @@ class PostPolicy
     {
         return ($user->id === $post->user_id)
             ? Response::allow()
-            : Response::deny("Only the post owner can update a post.");
+            : Response::deny('Only the post owner can update a post.');
     }
 
     /**
@@ -80,7 +85,7 @@ class PostPolicy
     {
         return ($user->id === $post->user_id || $user->is_admin)
             ? Response::allow()
-            : Response::deny("Only the post owner and admins can delete a post.");
+            : Response::deny('Only the post owner and admins can delete a post.');
     }
 
     /**
