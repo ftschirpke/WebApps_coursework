@@ -9,6 +9,38 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
+    public static function getCommentDescription(Comment $comment) {
+        $created_at = $comment->created_at;
+        if (now()->subWeeks(1)->greaterThan($created_at)) {
+            $created_at = 'created at ' . $created_at->format('Y-m-d H:m:s');
+        } else {
+            $created_at = 'created ' .
+                now()->longAbsoluteDiffForHumans($created_at) . ' ago';
+        }
+        $updated_at = 'not updated';
+        if ($comment->created_at != $comment->updated_at) {
+            $updated_at = $comment->updated_at;
+            if (now()->subWeeks(1)->greaterThan($updated_at)) {
+                $updated_at = 'updated at ' . $updated_at->format('Y-m-d H:m:s');
+            } else {
+                $updated_at = 'updated ' .
+                    now()->longAbsoluteDiffForHumans($updated_at) . ' ago';
+            }
+        }
+        $comment_descr = array(
+            'id' => $comment->id,
+            'user_id' => $comment->user->id,
+            'message' => $comment->message,
+            'accountRoute' => route('accounts.show', ['account' => $comment->user->account]),
+            'accountDisplayName' => $comment->user->account->display_name,
+            'destroyRoute' => route('comments.destroy', ['comment' => $comment]),
+            'editRoute' => route('comments.edit', ['comment' => $comment]),
+            'created_at' => $created_at,
+            'updated_at' => $updated_at
+        );
+        return $comment_descr;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -49,11 +81,7 @@ class CommentController extends Controller
 
         $comment->post->user->notify(new PostWasCommentedOn($comment));
 
-        $comment_descr = array(
-            'message' => $comment->message,
-            'accountRoute' => route('accounts.show', ['account' => $comment->user->account]),
-            'accountDisplayName' => $comment->user->account->display_name
-        );
+        $comment_descr = $this->getCommentDescription($comment);
         return response()->json($comment_descr);
     }
 
