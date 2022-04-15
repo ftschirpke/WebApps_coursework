@@ -13,11 +13,6 @@ class FriendsController extends Controller
         return view('friends.index', ['user' => Auth::user()]);
     }
 
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         $validatedData = $request->validate([

@@ -40,6 +40,7 @@
                         </div>
                     </div>
                 @endforeach
+                <br />
             @endif
             @if (!empty($recent_activity['new_post_views']))
                 <h5>Views on your posts</h5>
@@ -55,9 +56,9 @@
                         </div>
                     </div>
                 @endforeach
+                <br />
             @endif
             @if ($recent_activity['new_friends']->isNotEmpty())
-            <br />
                 <h5>New friends</h5>
                 @foreach ($recent_activity['new_friends'] as $friend)
                     <div class="row ms-2">
@@ -69,9 +70,9 @@
                         </div>
                     </div>
                 @endforeach
+                <br />
             @endif
             @if ($recent_activity['new_friend_requests']->isNotEmpty())
-            <br />
                 <h5>New friend requests</h5>
                 @foreach ($recent_activity['new_friend_requests'] as $sender)
                     <div class="row ms-2">
@@ -84,9 +85,9 @@
                         </div>
                     </div>
                 @endforeach
+                <br />
             @endif
             @if ($recent_activity['friends_posts']->isNotEmpty())
-            <br />
                 <h5>New posts by your friends</h5>
                 @foreach ($recent_activity['friends_posts'] as $friend_post)
                     <div class="row ms-2">
@@ -103,9 +104,9 @@
                         </div>
                     </div>
                 @endforeach
+                <br />
             @endif
             @if ($recent_activity['public_posts']->isNotEmpty())
-            <br />
                 <h5>New public posts</h5>
                 @foreach ($recent_activity['public_posts'] as $public_post)
                     <div class="row ms-2">

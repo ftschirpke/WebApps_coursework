@@ -12,7 +12,7 @@
                         <li>
                             <a class="text-warning" href="{{ route('reports.show', ['report'=>$report]) }}">
                                 {{ 'Report ' .  $report->id . ': ' 
-                                    . $report->reportable_type . ' '
+                                    . substr($report->reportable_type, 11) . ' '
                                     . $report->reportable_id . ' reported by User '
                                     . $report->user_id . '('
                                     . $report->user->account->display_name

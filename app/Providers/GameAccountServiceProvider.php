@@ -15,11 +15,15 @@ class GameAccountServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // $this->app->singleton('CoD', function($app) {
-        //     return new CallOfDuty("2beae5e1-f094-44cb-85ef-737d4e3046d3");
-        // });
+        $this->app->singleton('CoD', function($app) {
+            return new CallOfDuty(
+                "please enter Call of Duty API key"
+            );
+        });
         $this->app->singleton('LoL', function($app) {
-            return new LeagueOfLegends("please enter Riot Games API key (new one needed every day)");
+            return new LeagueOfLegends(
+                "please enter Riot Games API key (new one needed every day)"
+            );
         });
     }
 }

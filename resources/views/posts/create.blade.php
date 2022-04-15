@@ -44,6 +44,7 @@
                     </div>
                     <div class="form-group mt-2">
                         <input class="form-control-file" id="image" type="file" name="image" value="{{ old('image') }} aria-describedby="image_help">
+                        <br />
                         <small class="form-text text-muted" id="image_help">
                         The file must be an image (jpg, jpeg, png, bmp, gif, svg, or webp).
                         </small>

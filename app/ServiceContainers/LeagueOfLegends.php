@@ -24,7 +24,6 @@ class LeagueOfLegends
             'RU'    => 'ru'
         ];
         $this->champions = $this->getChampions();
-        // dd($this->champions);
     }
 
     private function getChampions() {

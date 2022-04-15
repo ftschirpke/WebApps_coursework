@@ -14,7 +14,7 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                 @if ($descr != 'public')
                                 <li>
-                                    <a href="{{ route('posts.indexFriends') }}" class="dropdown-item">Public Posts</a>
+                                    <a href="{{ route('posts.index') }}" class="dropdown-item">Public Posts</a>
                                 </li>
                                 @endif
                                 @if ($descr != 'my friend\'s')
